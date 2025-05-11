@@ -11,10 +11,10 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@amurex/ui/components",
-    "ui": "@amurex/ui/components/ui",
-    "utils": "@amurex/ui/lib/utils",
-    "lib": "@amurex/ui/lib",
-    "hooks": "@amurex/ui/hooks"
+    "components": "@repo/ui/components",
+    "ui": "@repo/ui/components/ui",
+    "utils": "@repo/ui/lib/utils",
+    "lib": "@repo/ui/lib",
+    "hooks": "@repo/ui/hooks"
   }
 }

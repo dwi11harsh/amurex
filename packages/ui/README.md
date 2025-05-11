@@ -1,1 +1,1 @@
-# `@amurex/ui`
+# `@repo/ui`
