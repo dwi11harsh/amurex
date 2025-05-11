@@ -1,6 +1,6 @@
 "use client";
 
-import { useConnectionsStore } from "@repo/ui/store";
+import { useConnectionsStore } from "@amurex/ui/store";
 import { useShallow } from "zustand/shallow";
 
 export const CheckHasObsidianEnabled = () => {

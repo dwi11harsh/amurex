@@ -2,7 +2,7 @@ import {
   useConnectionsStore,
   useSearchStore,
   useSessionStore,
-} from "@repo/ui/store";
+} from "@amurex/ui/store";
 import { useShallow } from "zustand/shallow";
 
 export const sendMessage = (messageToSend?: string): void => {

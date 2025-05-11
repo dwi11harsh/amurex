@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { Input, Button } from "@repo/ui/components";
+import { Input, Button } from "@amurex/ui/components";
 import type { MouseEventHandler, KeyboardEvent, ChangeEvent } from "react";
 
 interface Pin {

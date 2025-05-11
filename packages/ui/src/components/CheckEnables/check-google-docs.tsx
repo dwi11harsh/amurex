@@ -1,6 +1,6 @@
 "use client";
 
-import { useConnectionsStore, useShowOnboarding } from "@repo/ui/store";
+import { useConnectionsStore, useShowOnboarding } from "@amurex/ui/store";
 
 export const CheckHasGoogleDocsEnabled = () => {
   const hasGoogleDocs = useShowOnboarding((state) => state.hasGoogleDocs);

@@ -1,4 +1,4 @@
-import { BASE_URL_BACKEND } from "@repo/ui/components";
+import { BASE_URL_BACKEND } from "@amurex/ui/components";
 import { supabase } from "./supabaseClient";
 
 export const logUserAction = async (

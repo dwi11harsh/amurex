@@ -1,6 +1,6 @@
 "use client";
 
-import { useShowOnboarding } from "@repo/ui/store";
+import { useShowOnboarding } from "@amurex/ui/store";
 import { OnboardingFlow } from "./OnboardingFlow";
 
 export const ShowOnboardingFlow = () => {

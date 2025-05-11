@@ -1,10 +1,10 @@
 "use client";
 
-import { useSearchStore } from "@repo/ui/store";
+import { useSearchStore } from "@amurex/ui/store";
 import { useShallow } from "zustand/shallow";
-import { GPT, Query, Sources } from "@repo/ui/components";
+import { GPT, Query, Sources } from "@amurex/ui/components";
 import { Heading } from "./heading";
-import { sendMessage } from "@repo/ui/lib/send-message";
+import { sendMessage } from "@amurex/ui/lib/send-message";
 
 export const SearchResultsComp = () => {
   const { isSearching, searchResults } = useSearchStore(

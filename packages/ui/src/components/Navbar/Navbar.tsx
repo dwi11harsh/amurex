@@ -2,7 +2,7 @@
 
 import Image from "next/Image";
 import { useRouter } from "next/navigation";
-import { Button } from "@repo/ui/components";
+import { Button } from "@amurex/ui/components";
 import { Home, Search, Settings } from "lucide-react";
 
 export const Navbar = () => {

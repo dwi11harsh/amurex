@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { SearchResult } from "@repo/ui/types";
+import type { SearchResult } from "@amurex/ui/types";
 
 interface SearchState {
   inputValue: string;

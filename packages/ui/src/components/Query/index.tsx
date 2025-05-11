@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchStore } from "@repo/ui/store";
+import { useSearchStore } from "@amurex/ui/store";
 
 export const Query = ({ content = "" }) => {
   const sourcesTime = useSearchStore((state) => state.sourceTime);

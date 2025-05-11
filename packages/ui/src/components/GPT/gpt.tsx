@@ -1,7 +1,7 @@
 "use client";
 
-import { logUserAction } from "@repo/ui/lib/log-user-action";
-import { supabase } from "@repo/ui/lib/supabaseClient";
+import { logUserAction } from "@amurex/ui/lib/log-user-action";
+import { supabase } from "@amurex/ui/lib/supabaseClient";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { AnchorHTMLAttributes, FC, useEffect, useRef, useState } from "react";

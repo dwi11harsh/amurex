@@ -1,6 +1,6 @@
 "use client";
 
-import { useConnectionsStore, useMemorySearchEnabled } from "@repo/ui/store";
+import { useConnectionsStore, useMemorySearchEnabled } from "@amurex/ui/store";
 import { useShallow } from "zustand/shallow";
 import Image from "next/image";
 

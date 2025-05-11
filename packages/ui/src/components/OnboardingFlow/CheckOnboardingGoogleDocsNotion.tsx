@@ -1,6 +1,6 @@
 "use client";
 
-import { useShowOnboarding } from "@repo/ui/store";
+import { useShowOnboarding } from "@amurex/ui/store";
 import { useShallow } from "zustand/shallow";
 
 export const ConnectDocsOrNotionPopup = () => {

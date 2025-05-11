@@ -1,7 +1,7 @@
 "use client";
 
-import { sendMessage } from "@repo/ui/lib/send-message";
-import { useSearchStore, useSuggestedPromptsStore } from "@repo/ui/store";
+import { sendMessage } from "@amurex/ui/lib/send-message";
+import { useSearchStore, useSuggestedPromptsStore } from "@amurex/ui/store";
 
 export const SuggestedPrompts = () => {
   const isSearchInitiated = useSearchStore((state) => state.isSearchInitiated);

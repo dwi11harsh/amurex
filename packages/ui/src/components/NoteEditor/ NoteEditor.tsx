@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { NoteEditorTile, Loader } from "@repo/ui/components";
+import { NoteEditorTile, Loader } from "@amurex/ui/components";
 
 interface Pin {
   id: string;

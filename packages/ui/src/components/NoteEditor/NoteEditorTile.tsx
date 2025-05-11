@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { Button } from "@repo/ui/components";
+import { Button } from "@amurex/ui/components";
 import { Plus, Maximize2 } from "lucide-react";
 
 interface NoteEditorTileProps {

@@ -1,9 +1,9 @@
 "use client";
 
-import { sendMessage } from "@repo/ui/lib/send-message";
+import { sendMessage } from "@amurex/ui/lib/send-message";
 import Image from "next/image";
 import { ChangeEvent, KeyboardEvent } from "react";
-import { useSearchStore } from "@repo/ui/store";
+import { useSearchStore } from "@amurex/ui/store";
 import { useShallow } from "zustand/shallow";
 
 export const InputArea = ({ className = "" }: { className?: string }) => {
