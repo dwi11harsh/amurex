@@ -1,4 +1,4 @@
-import "@repo/ui/globals.css";
+import "@amurex/ui/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
