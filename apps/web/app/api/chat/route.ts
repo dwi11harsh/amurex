@@ -96,9 +96,12 @@ Please help answer questions about this meeting.`;
   }
 }
 
-/* Add Zod validation for the request body
-Implement rate limiting
-Consider adding streaming error handling
-Add request validation for the transcript structure
-Implement temperature and maxTokens as configurable parameters
-Add input sanitization for the messages */
+/* 
+TODO:
+  Add Zod validation for the request body
+  Implement rate limiting
+  Consider adding streaming error handling
+  Add request validation for the transcript structure
+  Implement temperature and maxTokens as configurable parameters
+  Add input sanitization for the messages and transcript
+*/

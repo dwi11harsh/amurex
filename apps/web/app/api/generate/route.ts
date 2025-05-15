@@ -19,7 +19,6 @@ const openai = new OpenAI({
 export const runtime = "edge";
 
 export async function POST(req: NextRequest): Promise<Response> {
-  // Validate environment variable
   if (!process.env.OPENAI_API_KEY) {
     return new Response(
       "Missing OPENAI_API_KEY – make sure to add it to your .env file.",
@@ -31,7 +30,7 @@ export async function POST(req: NextRequest): Promise<Response> {
   }
 
   try {
-    // Validate and extract prompt from request body
+    // validate and extract prompt from request body
     const { prompt } = (await req.json()) as GenerateRequest;
 
     if (!prompt || typeof prompt !== "string") {
@@ -46,7 +45,6 @@ export async function POST(req: NextRequest): Promise<Response> {
       );
     }
 
-    // Create typed completion request
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
@@ -72,7 +70,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       n: 1,
     });
 
-    // Handle stream with proper error checking
+    // handle stream with proper error checking
     const stream = OpenAIStream(response as any, {
       onCompletion: (completion: string) => {
         if (!completion.trim()) {
@@ -83,7 +81,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 
     return new StreamingTextResponse(stream);
   } catch (error) {
-    // Handle errors with proper type checking
+    // handle errors with proper type checking
     console.error("Error in generate API:", error);
 
     const errorMessage =
