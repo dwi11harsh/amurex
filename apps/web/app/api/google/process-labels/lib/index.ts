@@ -3,3 +3,6 @@ export * from "./generate-embeddings";
 export * from "./getOAuth2Client";
 export * from "./process-emails";
 export * from "./clients";
+export * from "./gmail-colors";
+export * from "./save-email-in-db";
+export * from "./validate-gmail-access";
