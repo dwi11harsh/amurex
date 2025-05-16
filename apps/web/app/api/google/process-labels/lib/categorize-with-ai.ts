@@ -8,12 +8,12 @@ import { groq } from "./clients";
  * @param enabledCategories - Object containing category configuration with boolean values
  * @returns The matched category as a string, or empty string if no match or error
  */
-export async function categorizeWithAI(
+export const categorizeWithAI = async (
   fromEmail: string,
   subject: string,
   body: string,
   enabledCategories: Record<string, boolean>,
-): Promise<string> {
+): Promise<string> => {
   try {
     // build the system prompt based on enabled categories
     let systemPrompt =
@@ -84,4 +84,4 @@ export async function categorizeWithAI(
     // Return empty string on error to indicate no categorization
     return "";
   }
-}
+};
