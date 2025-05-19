@@ -1,0 +1,2 @@
+ALTER TABLE users
+ADD COLUMN email_tagging_enabled BOOLEAN DEFAULT FALSE;
