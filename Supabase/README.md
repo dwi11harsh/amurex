@@ -51,3 +51,5 @@ Follow these steps to create a Supabase account and set up your database:
 ## Conclusion
 
 You now have a Supabase database set up for local testing. You can use this database to test your application and experiment with the data structure. If you have any questions or need further assistance, feel free to reach out to the Supabase community or consult the documentation.
+
+**05_alter_table.sql** & **06_add_data_into_altered_table** were later created for testing /api/cron/google-import
