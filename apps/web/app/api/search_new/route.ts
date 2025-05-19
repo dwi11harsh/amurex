@@ -15,21 +15,6 @@ interface SearchRequest {
   session: Session;
 }
 
-interface Document {
-  id: string;
-  url: string;
-  title: string;
-  meta: Record<string, any>;
-  tags: string[];
-  text?: string;
-}
-
-interface PageSection {
-  document_id: string;
-  context: string;
-  similarity?: number;
-}
-
 interface SearchResult {
   id: string;
   url: string;
