@@ -11,9 +11,11 @@
   "dependencies": {
     "@amurex/ui": "workspace:*",
     "@google/generative-ai": "^0.24.1",
+    "@notionhq/client": "^3.1.2",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "ai": "2.2.9",
+    "crypto": "^1.0.1",
     "googleapis": "^148.0.0",
     "next": "14.2.8",
     "openai": "^4.98.0",
