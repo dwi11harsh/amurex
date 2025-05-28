@@ -17,6 +17,7 @@
     "ai": "2.2.9",
     "crypto": "^1.0.1",
     "googleapis": "^148.0.0",
+    "langchain": "^0.3.4",
     "next": "14.2.8",
     "node-fetch": "^3.3.2",
     "openai": "^4.98.0",
