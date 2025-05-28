@@ -4,7 +4,7 @@
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@amurex/ui/lib/supabaseClient";
-import { LoadingSpinner } from "./loading-spinner";
+import { NotionLoadingSpinner } from "./notion-loading-spinner";
 
 interface NotionCallbackResponse {
   success: boolean;
@@ -101,5 +101,5 @@ export const NotionCallbackContent = () => {
     handleNotionCallback();
   }, [router, searchParams]);
 
-  return <LoadingSpinner text="Connecting Notion" />;
+  return <NotionLoadingSpinner text="Connecting Notion" />;
 };

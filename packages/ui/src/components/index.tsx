@@ -17,6 +17,7 @@ export * from "./Sources";
 export * from "./SearchResultComp";
 export * from "./GoogleCallbackContent";
 export * from "./CallbackStatusView";
+export * from "./NotionCallbackContent";
 
 // lib
 // Supabase Client

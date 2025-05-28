@@ -1,4 +1,4 @@
-export const LoadingSpinner = ({ text }: { text: string }) => {
+export const NotionLoadingSpinner = ({ text }: { text: string }) => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="text-center">
