@@ -15,6 +15,7 @@ export * from "./Query";
 export * from "./GPT";
 export * from "./Sources";
 export * from "./SearchResultComp";
+export * from "./GoogleCallbackContent";
 
 // lib
 // Supabase Client
