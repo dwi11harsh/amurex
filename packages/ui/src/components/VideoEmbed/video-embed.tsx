@@ -1,4 +1,4 @@
-export default function VideoEmbed() {
+export const VideoEmbed = () => {
   return (
     <div
       style={{
@@ -23,4 +23,4 @@ export default function VideoEmbed() {
       />
     </div>
   );
-}
+};
