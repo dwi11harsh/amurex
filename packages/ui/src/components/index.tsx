@@ -30,3 +30,8 @@ export * from "../lib/supabaseClient";
 export * from "../lib/utils";
 
 export const BASE_URL_BACKEND = "https://api.amurex.ai";
+
+export const PROVIDER_ICONS = {
+  gmail:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png",
+};
