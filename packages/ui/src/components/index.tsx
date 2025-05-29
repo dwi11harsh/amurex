@@ -1,6 +1,9 @@
 // Shadcn Components
 export * from "./ui/button";
 export * from "./ui/input";
+export * from "./ui/card";
+export * from "./ui/icon-toggle";
+export * from "./ui/switch";
 
 // Custom Components
 export * from "./Navbar";
