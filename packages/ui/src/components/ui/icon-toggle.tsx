@@ -7,7 +7,7 @@ interface IconToggleProps {
   color?: string;
 }
 
-const IconToggle = ({
+export const IconToggle = ({
   checked,
   onChange,
   className,
@@ -66,5 +66,3 @@ const IconToggle = ({
     </div>
   );
 };
-
-export default IconToggle;

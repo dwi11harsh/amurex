@@ -4,6 +4,7 @@ export * from "./ui/input";
 export * from "./ui/card";
 export * from "./ui/icon-toggle";
 export * from "./ui/switch";
+export * from "./ui/mobile-warning-banner";
 
 // Custom Components
 export * from "./Navbar";
