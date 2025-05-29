@@ -23,6 +23,7 @@ export * from "./GoogleCallbackContent";
 export * from "./CallbackStatusView";
 export * from "./NotionCallbackContent";
 export * from "./EmailContent";
+export * from "./VideoEmbed";
 
 // lib
 // Supabase Client
