@@ -30,6 +30,7 @@ export interface TranscriptState {
   setSearchTerm: (term: string) => void;
   setFilter: (filter: string) => void;
   setEmailNotificationsEnabled: (enabled: boolean) => void;
+  filteredTranscripts: () => Transcript[];
 
   fetchTranscripts: () => Promise<void>;
   fetchUserTeams: () => Promise<void>;

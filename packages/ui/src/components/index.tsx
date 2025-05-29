@@ -24,6 +24,7 @@ export * from "./CallbackStatusView";
 export * from "./NotionCallbackContent";
 export * from "./EmailContent";
 export * from "./VideoEmbed";
+export * from "./MeetingsComp";
 
 // lib
 // Supabase Client

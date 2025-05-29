@@ -9,3 +9,4 @@ export * from "./session";
 export * from "./search";
 export * from "./connections";
 export * from "./suggestedPrompts";
+export * from "./transcript-store";

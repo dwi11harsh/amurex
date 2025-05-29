@@ -1,7 +1,6 @@
 import { create } from "zustand";
-
+import { supabase } from "@amurex/ui/components";
 import { TranscriptState } from "@amurex/ui/types";
-import { supabase } from "@amurex/ui/lib/supabaseClient";
 
 export const useTranscriptStore = create<TranscriptState>((set, get) => ({
   searchTerm: "",
@@ -17,6 +16,14 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
   setEmailNotificationsEnabled: (enabled) =>
     set({ emailNotificationsEnabled: enabled }),
 
+  filteredTranscripts: () => {
+    const { searchTerm, transcripts } = get();
+    if (!searchTerm) return transcripts;
+    return transcripts.filter((transcript) =>
+      transcript.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  },
+
   fetchTranscripts: async () => {
     set({ loading: true, error: null });
     try {
@@ -29,7 +36,7 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
       }
 
       const { filter, userTeams } = get();
-      let data: {
+      let data: Array<{
         id: string;
         meeting_id: string;
         user_ids: string[];
@@ -37,9 +44,9 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
         meeting_title: string;
         summary: string;
         transcript: string;
-        action_items: string[];
+        action_items: any;
         team_name?: string;
-      }[] = [];
+      }> = [];
 
       if (filter !== "personal") {
         const { data: teamMeetings, error: meetingsError } = await supabase
@@ -105,7 +112,7 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
         summary: meeting.summary,
         transcript: meeting.transcript,
         action_items: meeting.action_items,
-        team_name: meeting.team_name,
+        ...(meeting.team_name && { team_name: meeting.team_name }),
       }));
 
       set({ transcripts: formatted });
@@ -132,10 +139,7 @@ export const useTranscriptStore = create<TranscriptState>((set, get) => ({
       set({
         userTeams: (data || []).map((item) => ({
           team_id: item.team_id,
-          teams: {
-            id: item.teams[0].id,
-            team_name: item.teams[0].team_name,
-          },
+          teams: item.teams?.[0] || null,
         })),
       });
     } catch (err: any) {
