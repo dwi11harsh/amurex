@@ -1,7 +1,7 @@
 import { EmailItem } from "./email-item";
 import { EmailPreviewProps } from "./types";
 
-const EmailPreview: React.FC<EmailPreviewProps> = ({
+export const EmailPreview: React.FC<EmailPreviewProps> = ({
   emails,
   categories,
   onEmailClick,
