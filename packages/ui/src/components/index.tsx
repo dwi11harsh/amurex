@@ -26,6 +26,7 @@ export * from "./EmailContent";
 export * from "./VideoEmbed";
 export * from "./MeetingsComp";
 export * from "./OnboardingContent";
+export * from "./ResetPasswordForm";
 
 // lib
 // Supabase Client
