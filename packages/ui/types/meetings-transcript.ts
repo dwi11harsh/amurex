@@ -7,6 +7,7 @@ export interface Transcript {
   summary: string;
   content: string;
   actionItems: string;
+  team_name?: string;
 }
 
 export interface TranscriptStore {
@@ -32,6 +33,9 @@ export interface TranscriptStore {
   previewContent: string;
   isLoadingPreview: boolean;
   params: { id: string } | null;
+  filter: string;
+  userTeams: UserTeam[];
+  searchTerm: string;
 
   init: (params: { id: string }) => void;
   setSession: (session: any) => void;
@@ -55,6 +59,8 @@ export interface TranscriptStore {
   setSharedWith: (emails: string[]) => void;
   setPreviewContent: (content: string) => void;
   setIsLoadingPreview: (value: boolean) => void;
+  setFilter: (filter: string) => void;
+  setSearchTerm: (term: string) => void;
 
   fetchSession: () => Promise<void>;
   logUserAction: (userId: string, eventType: string) => Promise<void>;

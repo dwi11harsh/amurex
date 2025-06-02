@@ -1,17 +1,25 @@
-import * as React from "react";
+import React, { InputHTMLAttributes } from "react";
 
-import { cn } from "@amurex/ui/lib/utils";
-
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+export const Input = ({
+  className,
+  type,
+  placeholder,
+  value,
+  ...props
+}: {
+  className: string;
+  props: InputHTMLAttributes<HTMLInputElement>;
+  type: string;
+  value: string;
+  placeholder?: string;
+}) => {
   return (
     <input
-      className={cn(
-        `w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none ${className}`,
-        className,
-      )}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      className={`w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none ${className}`}
       {...props}
     />
   );
-}
-
-export { Input };
+};

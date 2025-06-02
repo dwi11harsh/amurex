@@ -26,6 +26,9 @@ export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
   previewContent: "",
   isLoadingPreview: false,
   params: null,
+  filter: "personal",
+  userTeams: [],
+  searchTerm: "",
 
   init: (params) => {
     set({ params });
@@ -68,6 +71,8 @@ export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
   setSharedWith: (emails) => set({ sharedWith: emails }),
   setPreviewContent: (content) => set({ previewContent: content }),
   setIsLoadingPreview: (value) => set({ isLoadingPreview: value }),
+  setFilter: (filter) => set({ filter }),
+  setSearchTerm: (term) => set({ searchTerm: term }),
 
   fetchSession: async () => {
     const {
@@ -118,7 +123,8 @@ export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
           summary,
           transcript,
           action_items,
-          shared_with
+          shared_with,
+          team_name
         `,
         )
         .eq("id", params?.id)
@@ -139,6 +145,7 @@ export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
         summary: data.summary,
         content: data.transcript || "",
         actionItems: data.action_items || "",
+        team_name: data.team_name,
       };
 
       set({ transcript: transcriptData });

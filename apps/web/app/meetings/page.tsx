@@ -89,7 +89,7 @@ export default function TranscriptList() {
         {error && <div className="text-red-500 mb-4">{error}</div>}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {filteredTranscripts.map((transcript) => (
+          {filteredTranscripts.map((transcript: any) => (
             <TranscriptCard
               key={transcript.id}
               transcript={transcript}

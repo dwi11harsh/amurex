@@ -1,3 +1,5 @@
+"use client";
+
 import { FormEvent, useEffect, useRef } from "react";
 import { Download } from "lucide-react";
 
