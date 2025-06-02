@@ -25,6 +25,7 @@ export * from "./NotionCallbackContent";
 export * from "./EmailContent";
 export * from "./VideoEmbed";
 export * from "./MeetingsComp";
+export * from "./OnboardingContent";
 
 // lib
 // Supabase Client
