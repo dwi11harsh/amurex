@@ -12,3 +12,5 @@ export * from "./suggestedPrompts";
 export * from "./transcript-store";
 export * from "./onboarding-store";
 export * from "./reset-password-store";
+
+export * from "./shared-transcript-store";

@@ -27,6 +27,7 @@ export * from "./VideoEmbed";
 export * from "./MeetingsComp";
 export * from "./OnboardingContent";
 export * from "./ResetPasswordForm";
+export * from "./SharedTranscript";
 
 // lib
 // Supabase Client
