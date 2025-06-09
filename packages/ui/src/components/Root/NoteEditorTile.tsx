@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useCallback } from "react";
 import { Plus, Maximize2 } from "lucide-react";
 import { Button } from "@amurex/ui/components";

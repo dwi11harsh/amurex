@@ -21,11 +21,13 @@
     "typescript": "catalog:"
   },
   "dependencies": {
+    "@amurex/supabase": "workspace:*",
     "@amurex/types": "workspace:*",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "catalog:",
+    "novel-lightweight": "^0.2.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -34,10 +36,11 @@
     "./postcss.config": "./postcss.config.mjs",
     "./tailwind.config": "./tailwind.config.ts",
     "./lib": "./src/lib/index.ts",
-    "./hooks/*": [
-      "./src/hooks/*.ts",
-      "./src/hooks/*.tsx"
+    "./hooks": [
+      "./src/hooks/index.ts",
+      "./src/hooks/index.tsx"
     ],
-    "./components": "./src/components/index.tsx"
+    "./components": "./src/components/index.tsx",
+    "./store": "./src/store/index.ts"
   }
 }
