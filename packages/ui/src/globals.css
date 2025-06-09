@@ -2,6 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --line-color: #e1e1e1;
+  --surface-color: #fff;
+  --surface-color-2: #f0f2f5;
+  --surface-color-3: #f0f2f5;
+  --surface-color-4: #f0f2f5;
+  --color: #000;
+  --color-2: #000;
+  --color-3: #000;
+  --color-4: #748297;
+  --button-color: #e3e7ee;
+  --accent-color: #ff5924;
+  --alert-color: #ff002e;
+  --dropshadow-color: #babfc2;
+  --highlight-color: #fff6aa;
+  --gutter: 80px;
+  --bar-height: 60px;
+  --col-gap: 25px;
+  --backdrop-color: rgb(0 0 0 / 80%);
+  --inset-top: 0px;
+  --inset-bottom: 0px;
+  --native-nav-gradient-inset: 20px;
+  --note-divider-color: #748297;
+  --shortcut-button: #e3e7ee;
+  --shortcut-label-color: #000;
+  --sunrise-gradient: linear-gradient(113deg, #f2e5d7 1.23%, #ddcab5 98.53%),
+    #ddcab5;
+  --button-bg-color: #fff;
+  --button-gradient: linear-gradient(
+    90deg,
+    #ed9ec0 0%,
+    #f5bb79 50%,
+    #ff3b21 100%
+  );
+  --fallback-bg: #fff;
+  --fallback-box-shadow: 0px 77px 31px rgb(64 70 79 / 2%),
+    0px 43px 32px rgb(64 70 79 / 7%), 0px 19px 19px rgb(64 70 79 / 8%),
+    0px 2px 7px rgb(64 70 79 / 10%);
+  --transition-ease: cubic-bezier(0.25, 0.1, 0, 1);
+  --card-color: #909cae;
+  --card-logo-color: #909cae;
+  --card-shadow-color: #d4dce7;
+  --repository-object-label-color: #909cae;
+  --repository-object-value-color: #292f39;
+  --repository-object-link: rgb(240 242 245 / 70%);
+  --repository-object-link-hover: rgb(240 242 245 / 100%);
+  --later-tag-background: #f0fffe;
+  --later-tag-color: #559490;
+  --root-surface-color: #fff;
+  --scrollbar-color: #d0d8e5;
+}
+
+body {
+  color: var(--color);
+  background: var(--surface-color);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -22,15 +86,14 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
+    --ring: 240 10% 3.9%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
   }
-
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -66,4 +129,15 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Global text selection styles */
+::selection {
+  background-color: #3c1671;
+  color: white;
+}
+
+::-moz-selection {
+  background-color: #3c1671;
+  color: white;
 }
