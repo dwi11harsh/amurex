@@ -1,0 +1,15 @@
+{
+  "name": "@amurex/types",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@amurex/typescript-config": "workspace:*",
+    "typescript": "latest"
+  }
+}
