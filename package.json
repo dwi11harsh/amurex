@@ -1,8 +1,6 @@
 {
-  "name": "turborepo-shadcn-ui",
-  "version": "1.5.1",
-  "private": true,
-  "license": "MIT",
+  "name": "amurex",
+  "version": "2.0.0",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",

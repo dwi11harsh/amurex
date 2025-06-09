@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { Editor } from "novel-lightweight";
 import { Session, supabase } from "@amurex/supabase";
 import { Button } from "@amurex/ui/components";
 import { X } from "lucide-react";
@@ -11,11 +10,19 @@ interface FocusedEditorProps {
   onClose: () => void;
 }
 
-export default function FocusedEditor({ onSave, onClose }: FocusedEditorProps) {
+export const FocusedEditor = ({ onSave, onClose }: FocusedEditorProps) => {
   const [data, setData] = useState<string>("");
   const editorRef = useRef<any>(null);
   const [saveStatus, setSaveStatus] = useState<string>("Unsaved");
   const [session, setSession] = useState<Session | null>(null);
+  const [Editor, setEditor] = useState<any>(null);
+
+  // TODO?: had to use this as a fix to get the editor to load (Editor from novel is not functional)
+  useEffect(() => {
+    import("novel").then((mod) => {
+      setEditor(() => mod.EditorInstance);
+    });
+  }, []);
 
   useEffect(() => {
     const getSession = async () => {
@@ -51,6 +58,10 @@ export default function FocusedEditor({ onSave, onClose }: FocusedEditorProps) {
     }
   }, [onSave]);
 
+  if (!Editor) {
+    return <div>Loading editor...</div>;
+  }
+
   return (
     <div className="relative w-full max-w-screen-lg">
       <Button
@@ -75,4 +86,4 @@ export default function FocusedEditor({ onSave, onClose }: FocusedEditorProps) {
       </Button>
     </div>
   );
-}
+};
