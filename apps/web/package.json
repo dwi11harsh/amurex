@@ -20,6 +20,7 @@
   "devDependencies": {
     "@amurex/eslint-config": "workspace:*",
     "@amurex/typescript-config": "workspace:*",
+    "@amurex/supabase": "workspace:*",
     "@next/eslint-plugin-next": "14.2.8",
     "@types/eslint": "catalog:",
     "@types/node": "catalog:",
