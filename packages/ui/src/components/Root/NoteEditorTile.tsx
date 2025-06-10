@@ -3,11 +3,8 @@
 import React, { useState, useCallback } from "react";
 import { Plus, Maximize2 } from "lucide-react";
 import { Button } from "@amurex/ui/components";
-import {
-  NoteEditorTileProps,
-  NoteChangeEvent,
-  NoteKeyDownEvent,
-} from "./types";
+import { NoteChangeEvent, NoteKeyDownEvent } from "./types";
+import { NoteEditorTileProps } from "@amurex/types";
 
 export const NoteEditorTile: React.FC<NoteEditorTileProps> = ({
   onSave,

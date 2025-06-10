@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button, Input } from "@amurex/ui/components";
 import { supabase } from "@amurex/supabase";
-import { PinPopoverProps } from "./types";
+import { PinPopoverProps } from "@amurex/types";
 
 export const PinPopover = ({ pin, onClose }: PinPopoverProps) => {
   const popoverRef = useRef<HTMLDivElement>(null);
