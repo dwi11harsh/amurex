@@ -5,6 +5,9 @@ interface getOauth2ClientProps {
   client_secret: string;
 }
 
+if (!process.env.GOOGLE_REDIRECT_URI)
+  throw new Error("Missing GOOGLE_REDIRECT_URI");
+
 export const getOauth2Client = ({
   userData,
 }: {
