@@ -1,1 +1,1 @@
-export * from "./RootPageTypes";
+export * from "./HomePageTypes";

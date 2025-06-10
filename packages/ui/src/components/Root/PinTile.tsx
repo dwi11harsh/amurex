@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { PinPopover } from "./PinPopover";
 import { motion } from "framer-motion";
