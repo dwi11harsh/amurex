@@ -4,3 +4,4 @@ export * from "./clients/SupabaseAdminClient";
 export * from "./clients/OpenAIClient";
 export * from "./clients/GroqClient";
 export * from "./clients/MistralClient";
+export * from "./clients/ResendClient";
