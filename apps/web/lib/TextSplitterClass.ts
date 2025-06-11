@@ -1,22 +1,22 @@
-interface TextSplitterParams {
-  chunkSize?: number;
-  chunkOverlap?: number;
+export interface Document {
+  pageContent: string;
 }
 
-interface TextChunk {
-  pageContent: string;
+export interface TextSplitterConfig {
+  chunkSize?: number;
+  chunkOverlap?: number;
 }
 
 export class TextSplitter {
   private chunkSize: number;
   private chunkOverlap: number;
 
-  constructor({ chunkSize = 200, chunkOverlap = 50 }: TextSplitterParams = {}) {
+  constructor({ chunkSize = 200, chunkOverlap = 50 }: TextSplitterConfig = {}) {
     this.chunkSize = chunkSize;
     this.chunkOverlap = chunkOverlap;
   }
 
-  async createDocuments(texts: string | string[]): Promise<TextChunk[]> {
+  async createDocuments(texts: string | string[]): Promise<Document[]> {
     const textArray = Array.isArray(texts) ? texts : [texts];
 
     return textArray.flatMap((text: string) => {
@@ -26,7 +26,7 @@ export class TextSplitter {
         return [{ pageContent: cleanText }];
       }
 
-      const chunks: TextChunk[] = [];
+      const chunks: Document[] = [];
       let startIndex = 0;
 
       while (startIndex < cleanText.length) {

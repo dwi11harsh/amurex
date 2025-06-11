@@ -1,13 +1,9 @@
 import { NextResponse } from "next/server";
-import {
-  calculateCentroid,
-  fetchNotionPageContent,
-  generateTags,
-  TextSplitter,
-} from "./lib";
+import { calculateCentroid, fetchNotionPageContent, generateTags } from "./lib";
 import crypto from "crypto";
 import { supabaseAdminClient as adminSupabase } from "@amurex/web/lib";
 import { Client } from "@notionhq/client";
+import { TextSplitter } from "@amurex/web/lib";
 
 export const maxDuration = 300;
 

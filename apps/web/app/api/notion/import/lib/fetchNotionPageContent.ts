@@ -1,6 +1,6 @@
 // TODO: remove any
 
-import { extractBlockContent } from "./extract-block-content";
+import { extractBlockContent } from "./extractBlockContent";
 
 export const fetchNotionPageContent = async (
   notion: any,
