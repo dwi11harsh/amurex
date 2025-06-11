@@ -1,5 +1,8 @@
 import { google, Auth } from "googleapis";
-import { supabaseAdminClient as adminSupabase } from "@amurex/web/lib";
+import {
+  supabaseAdminClient as adminSupabase,
+  getOauth2Client,
+} from "@amurex/web/lib";
 
 interface UserData {
   google_cohort: number;
@@ -10,7 +13,7 @@ interface GoogleClientData {
   client_secret: string;
 }
 
-export const getOAuth2Client = async (
+export const getOAuth2ClientForProcessLabels = async (
   userId: string,
 ): Promise<Auth.OAuth2Client> => {
   try {
@@ -46,11 +49,7 @@ export const getOAuth2Client = async (
     if (!clientData) throw new Error("Client credentials not found");
 
     // Create OAuth2 client with validated credentials
-    return new google.auth.OAuth2(
-      clientData.client_id,
-      clientData.client_secret,
-      process.env.GOOGLE_REDIRECT_URI!,
-    );
+    return getOauth2Client({ userData: clientData });
   } catch (error: unknown) {
     console.error("Error getting OAuth credentials:", error);
 
@@ -59,10 +58,6 @@ export const getOAuth2Client = async (
       throw new Error("Missing fallback Google OAuth credentials");
     }
 
-    return new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.GOOGLE_REDIRECT_URI!,
-    );
+    return getOauth2Client({});
   }
 };

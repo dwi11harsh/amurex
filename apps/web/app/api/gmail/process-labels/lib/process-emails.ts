@@ -1,7 +1,7 @@
 import { supabase } from "@amurex/supabase";
 import { Email, EmailData, ProcessResult } from "../types";
 
-async function processEmails(
+export async function processEmails(
   emails: Email[],
   userId: string,
   labelId: string,

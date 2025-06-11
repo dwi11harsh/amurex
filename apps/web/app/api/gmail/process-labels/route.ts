@@ -5,7 +5,10 @@ import {
   storeEmailInDatabase,
   validateGmailAccess,
 } from "./lib";
-import { supabaseAdminClient as adminSupabase } from "@amurex/web/lib";
+import {
+  supabaseAdminClient as adminSupabase,
+  getOauth2Client,
+} from "@amurex/web/lib";
 import { google } from "googleapis";
 import { GmailMessagePart, LabelRequestBody } from "./types";
 
@@ -109,11 +112,7 @@ export async function POST(req: Request) {
     }
 
     // Create the OAuth client with the fetched credentials
-    const oauth2Client = new google.auth.OAuth2(
-      clientData.client_id,
-      clientData.client_secret,
-      process.env.GOOGLE_REDIRECT_URI,
-    );
+    const oauth2Client = getOauth2Client({ userData: clientData });
 
     oauth2Client.setCredentials({
       refresh_token: userData.google_refresh_token,

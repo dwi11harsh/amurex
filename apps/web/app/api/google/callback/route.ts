@@ -1,6 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
 import { google } from "googleapis";
-import { supabaseAdminClient as supabase } from "@amurex/web/lib";
+import {
+  getOauth2Client,
+  supabaseAdminClient as supabase,
+} from "@amurex/web/lib";
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
@@ -56,12 +59,13 @@ export async function GET(request: NextRequest) {
       clientId: clientData!.client_id.substring(0, 10) + "...",
     });
 
-    // Create OAuth2 client with the correct credentials
-    const oauth2Client = new google.auth.OAuth2(
-      clientData!.client_id,
-      clientData!.client_secret,
-      process.env.GOOGLE_REDIRECT_URI_NEW,
-    );
+    // get OAuth2 client with the correct credentials
+    const oauth2Client = getOauth2Client({
+      userData: {
+        client_id: clientData.client_id,
+        client_secret: clientData.client_secret,
+      },
+    });
 
     console.log(
       "OAuth client created with redirect URI:",

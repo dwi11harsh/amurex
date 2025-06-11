@@ -1,6 +1,8 @@
-import { google } from "googleapis";
 import { GoogleClient, OAuthClientResult } from "../types";
-import { supabaseAdminClient as supabase } from "@amurex/web/lib";
+import {
+  getOauth2Client,
+  supabaseAdminClient as supabase,
+} from "@amurex/web/lib";
 
 // Function to get OAuth client based on user's google_token_version
 export const getOAuth2ClientForGoogle = async (
@@ -21,11 +23,7 @@ export const getOAuth2ClientForGoogle = async (
       if (!defaultClient) throw new Error("No default client found");
 
       return {
-        oauth2Client: new google.auth.OAuth2(
-          defaultClient.client_id,
-          defaultClient.client_secret,
-          process.env.GOOGLE_REDIRECT_URI_NEW,
-        ),
+        oauth2Client: getOauth2Client({ userData: defaultClient }),
         clientInfo: defaultClient,
       };
     }
@@ -126,11 +124,7 @@ export const getOAuth2ClientForGoogle = async (
     if (!clientData) throw new Error("No client data available");
 
     return {
-      oauth2Client: new google.auth.OAuth2(
-        clientData.client_id,
-        clientData.client_secret,
-        process.env.GOOGLE_REDIRECT_URI_NEW,
-      ),
+      oauth2Client: getOauth2Client({ userData: clientData }),
       clientInfo: clientData,
     };
   } catch (error) {
@@ -148,11 +142,7 @@ export const getOAuth2ClientForGoogle = async (
       if (!anyClient) throw new Error("No fallback client found");
 
       return {
-        oauth2Client: new google.auth.OAuth2(
-          anyClient.client_id,
-          anyClient.client_secret,
-          process.env.GOOGLE_REDIRECT_URI_NEW,
-        ),
+        oauth2Client: getOauth2Client({ userData: anyClient }),
         clientInfo: anyClient,
       };
     } catch (fallbackError) {
