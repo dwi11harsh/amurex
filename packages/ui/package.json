@@ -24,6 +24,7 @@
     "@amurex/supabase": "workspace:*",
     "@amurex/types": "workspace:*",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.2.5",
     "@tiptap/pm": "^2.14.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -33,6 +34,7 @@
     "novel": "^0.5.0",
     "novel-lightweight": "^0.2.1",
     "react-hot-toast": "^2.5.2",
+    "sonner": "^2.0.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
