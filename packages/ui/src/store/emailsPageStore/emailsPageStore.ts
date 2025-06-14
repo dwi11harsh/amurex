@@ -7,7 +7,7 @@ import {
   SampleEmailType,
 } from "./types";
 
-export const emailsPageStore = create<EmailsPageStoreType>((set, get) => ({
+export const useEmailsPageStore = create<EmailsPageStoreType>((set, get) => ({
   sampleEmails: [
     {
       id: 1,
