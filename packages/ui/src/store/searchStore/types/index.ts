@@ -29,13 +29,14 @@ export type MessagePayload = {
 export type DeletionConfirmation = {
   deletingThread: {
     title: string;
+    id?: string;
   };
   isWaiting: boolean;
   error: string | null;
 };
 
 export interface Session {
-  user_id: string;
+  user: { id: string };
   [key: string]: any;
 }
 
@@ -61,6 +62,35 @@ export type ThreadItem = {
   answer?: string;
   completionTime?: number;
 };
+
+// Define the source type options
+type SourceType =
+  | "google_docs"
+  | "notion"
+  | "msteams"
+  | "google_meet"
+  | "obsidian"
+  | "gmail"
+  | "email"
+  | string; // Allow other unknown types
+
+// Type for individual source objects
+interface Source {
+  type: SourceType;
+  url?: string;
+  from?: string; // Used for email sources
+  title?: string; // Display title
+  // Add other properties if present in your data
+}
+
+// Type for filters object
+interface SourceFilters {
+  showGoogleDocs?: boolean;
+  showNotion?: boolean;
+  showMeetings?: boolean; // Controls both msteams and google_meet
+  showObsidian?: boolean;
+  showGmail?: boolean; // Controls both gmail and email
+}
 
 export interface SearchStoreType {
   inputValue: string;
@@ -202,9 +232,9 @@ export interface SearchStoreType {
 
   openThread: (threadId: string) => void;
 
-  deleteThread: (threadId: string) => void;
+  deleteThread: () => void;
 
-  initiageGoogleAuth: () => void;
+  initiateGoogleAuth: () => void;
 
   initiateGmailAuth: () => void;
 
@@ -218,9 +248,12 @@ export interface SearchStoreType {
 
   handleMeetingsClick: () => void;
 
+  content: Source[];
+  filters: SourceFilters;
+
   filteredSources: () => void;
 
-  fetchSession: () => Promise<Session | null>;
+  fetchSession: () => any;
 
   logUserAction: (userId: string, eventType: string) => void;
 }
