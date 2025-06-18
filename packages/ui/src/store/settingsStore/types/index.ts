@@ -139,6 +139,9 @@ export interface SettingsStoreType {
   showWarningModal: boolean;
   setShowWarningModal: (value: boolean) => void;
 
+  emailLabelingEnabled: boolean;
+  setEmailLabelingEnabled: (enabled: boolean) => void;
+
   importGoogleDocs: () => void;
 
   importNotionDocuments: () => void;
@@ -147,7 +150,7 @@ export interface SettingsStoreType {
 
   checkSession: () => void;
 
-  checkIntegration: () => void;
+  checkIntegrations: () => Promise<boolean>;
 
   initiateLogOut: () => void;
 
@@ -157,9 +160,9 @@ export interface SettingsStoreType {
 
   connectOmi: () => void;
 
-  handleMemoryToggle: () => void;
+  handleMemoryToggle: (checked: boolean) => void;
 
-  handleEmailNotificationsToggle: () => void;
+  handleEmailNotificationsToggle: (checked: boolean) => void;
 
   handleGoogleCallback: () => void;
 
