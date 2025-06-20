@@ -30,8 +30,7 @@ export const useTranscriptListStore = create<TrascriptListStoreType>(
     setEmailNotificationsEnabled: (value) =>
       set({ emailNotificationsEnabled: value }),
 
-    fetchTranscripts: async () => {
-      const router = useRouter();
+    fetchTranscripts: async (router) => {
       const {
         setError,
         setLoading,

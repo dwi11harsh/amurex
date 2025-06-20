@@ -1,3 +1,6 @@
+import { Router } from "next/dist/client/router";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 interface TranscriptType {
   id: string;
   meeting_id: string;
@@ -7,6 +10,7 @@ interface TranscriptType {
   summary: string;
   content: string;
   actionItems: string;
+  team_name: string;
 }
 
 interface UserTeamsType {
@@ -39,7 +43,7 @@ export interface TrascriptListStoreType {
   emailNotificationsEnabled: boolean;
   setEmailNotificationsEnabled: (value: boolean) => void;
 
-  fetchTranscripts: () => Promise<void>;
+  fetchTranscripts: (router: AppRouterInstance) => Promise<void>;
 
   fetchUserTeams: () => Promise<void>;
 

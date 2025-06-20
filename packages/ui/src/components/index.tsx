@@ -10,6 +10,7 @@ export * from "./Navbar";
 export * from "./Callbacks";
 export * from "./MobileWarningBanner";
 export * from "./Emails";
+export * from "./TranscriptList";
 
 export const PROVIDER_ICONS = {
   gmail:
