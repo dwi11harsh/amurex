@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { BASE_URL_BACKEND } from "@amurex/ui/lib";
 import { TranscriptDetailStoreTypes, ChatMessageType } from "./types";
 import { supabase } from "@amurex/supabase";
-import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
 export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
   (set, get) => ({
@@ -137,8 +137,7 @@ export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
       setEmails(emails.filter((_, i) => i !== index));
     },
 
-    sendEmails: async (params) => {
-      const router = useRouter();
+    sendEmails: async (params, router) => {
       const {
         emails,
         logUserAction,
@@ -194,7 +193,7 @@ export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
         }
 
         // Refresh the shaedWith list
-        await fetchTranscript(params);
+        await fetchTranscript(params, router);
 
         // Clear the new emails list
         setEmails([]);
@@ -206,8 +205,7 @@ export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
       }
     },
 
-    handleCopyLink: async (params) => {
-      const router = useRouter();
+    handleCopyLink: async (params, router) => {
       const { session, setCopyButtonText, logUserAction } = get();
       if (!session || !session.user) {
         router.push("/web_app/signin");
@@ -274,8 +272,7 @@ export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
       }
     },
 
-    handleActualDownload: async (params) => {
-      const router = useRouter();
+    handleActualDownload: async (params, router) => {
       const { transcript, logUserAction, setIsPreviewModalOpen, session } =
         get();
 
@@ -324,8 +321,7 @@ export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
       logUserAction(session.user.id, "web_action_item_clicked", params);
     },
 
-    handleSummaryClick: (params) => {
-      const router = useRouter();
+    handleSummaryClick: (params, router) => {
       const { logUserAction, session } = get();
       if (!session || !session.user) {
         router.push("/web_app/signin");
@@ -334,8 +330,7 @@ export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
       logUserAction(session.user.id, "web_summary_clicked", params);
     },
 
-    fetchTranscript: async (params) => {
-      const router = useRouter();
+    fetchTranscript: async (params, router) => {
       const { session, setSharedWith, setError, setLoading } = get();
       try {
         const {

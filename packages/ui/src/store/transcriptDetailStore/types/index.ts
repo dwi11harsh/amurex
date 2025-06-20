@@ -1,3 +1,5 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 interface TranscriptType {
   id: string;
   meeting_id: string;
@@ -26,7 +28,7 @@ export interface ChatMessageType {
   };
 }
 
-type CopyButtonTextType = "Copy share link" | "Copied!";
+type CopyButtonTextType = "Copy share link" | "Copied!" | "Copy";
 
 type EventType =
   | "web_summary_clicked"
@@ -122,19 +124,25 @@ export interface TranscriptDetailStoreTypes {
 
   removeEmail: (index: number) => void;
 
-  sendEmails: (params: { id: string }) => void;
+  sendEmails: (params: { id: string }, router: AppRouterInstance) => void;
 
-  handleCopyLink: (params: { id: string }) => void;
+  handleCopyLink: (params: { id: string }, router: AppRouterInstance) => void;
 
   handleDownload: () => void;
 
-  handleActualDownload: (params: { id: string }) => void;
+  handleActualDownload: (
+    params: { id: string },
+    router: AppRouterInstance,
+  ) => void;
 
   handleActionItemClick: (params: { id: string }) => void;
 
-  handleSummaryClick: (params: { id: string }) => void;
+  handleSummaryClick: (
+    params: { id: string },
+    router: AppRouterInstance,
+  ) => void;
 
-  fetchTranscript: (params: { id: string }) => void;
+  fetchTranscript: (params: { id: string }, router: AppRouterInstance) => void;
 
   handleChatSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }

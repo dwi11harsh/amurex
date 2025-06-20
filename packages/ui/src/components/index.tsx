@@ -3,6 +3,7 @@ export * from "./ui/button";
 export * from "./ui/input";
 export * from "./ui/IconToggle";
 export * from "./ui/card";
+export * from "./ui/switch";
 
 // custom
 export * from "./Root";
@@ -11,6 +12,7 @@ export * from "./Callbacks";
 export * from "./MobileWarningBanner";
 export * from "./Emails";
 export * from "./TranscriptList";
+export * from "./MeetDetail";
 
 export const PROVIDER_ICONS = {
   gmail:
