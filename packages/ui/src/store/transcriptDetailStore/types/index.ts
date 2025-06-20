@@ -145,4 +145,8 @@ export interface TranscriptDetailStoreTypes {
   fetchTranscript: (params: { id: string }, router: AppRouterInstance) => void;
 
   handleChatSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+
+  fetchSession: (router: AppRouterInstance) => void;
+
+  fetchMemoryStatus: (router: AppRouterInstance) => void;
 }

@@ -4,7 +4,6 @@ import { create } from "zustand";
 import { BASE_URL_BACKEND } from "@amurex/ui/lib";
 import { TranscriptDetailStoreTypes, ChatMessageType } from "./types";
 import { supabase } from "@amurex/supabase";
-import { useRef } from "react";
 
 export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
   (set, get) => ({
@@ -363,6 +362,45 @@ export const useTranscriptDetailStore = create<TranscriptDetailStoreTypes>(
       } catch (err: any) {
         console.error("Error fetching transcript:", err);
         setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+
+    fetchSession: async (router) => {
+      const { setSession } = get();
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/web_app/signin");
+        return;
+      }
+    },
+
+    fetchMemoryStatus: async (router) => {
+      const { setMemoryEnabled, setLoading } = get();
+
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (!session) {
+          router.push("/web_app/signin");
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("users")
+          .select("memory_enabled")
+          .eq("id", session.user.id)
+          .single();
+
+        if (error) throw error;
+        setMemoryEnabled(data?.memory_enabled || false);
+      } catch (error) {
+        console.error("Error fetching memory status:", error);
       } finally {
         setLoading(false);
       }
