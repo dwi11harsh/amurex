@@ -1,3 +1,5 @@
+"use client";
+
 // Add Chrome extension API type declaration
 declare global {
   interface Window {

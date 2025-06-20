@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function MobileWarningBanner() {
+export const MobileWarningBanner = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const router = useRouter();
 
   useEffect(() => {
     // Check if the device is mobile
@@ -58,4 +57,4 @@ export default function MobileWarningBanner() {
       </div>
     </div>
   );
-}
+};

@@ -3,10 +3,6 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 import { ChangeEvent } from "react";
 
 export interface OnboardingStoreType {
-  router: AppRouterInstance;
-
-  searchParams: ReadonlyURLSearchParams;
-
   slideDuration: number;
 
   currentStep: number;

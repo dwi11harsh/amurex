@@ -1,3 +1,5 @@
+"use client";
+
 import { create } from "zustand";
 import { TrascriptListStoreType } from "./types";
 import { supabase } from "@amurex/supabase";

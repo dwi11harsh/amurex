@@ -1,3 +1,5 @@
+"use client";
+
 import { create } from "zustand";
 import { toast } from "sonner";
 import { supabase } from "@amurex/supabase";
@@ -330,7 +332,7 @@ export const useEmailsPageStore = create<EmailsPageStoreType>((set, get) => ({
     }
   },
 
-  handleGmailConect: async () => {
+  handleGmailConnect: async () => {
     const { setIsConnectingGmail, userId } = get();
     try {
       setIsConnectingGmail(true);

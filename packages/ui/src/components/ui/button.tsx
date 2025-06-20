@@ -13,6 +13,8 @@ const buttonVariants = cva(
         ghost: "bg-transparent hover:bg-gray-100",
         navbar:
           "border border-transparent bg-transparent hover:border hover:bg-[#3c1671] hover:border-[#6D28D9]",
+        outline:
+          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
       },
       size: {
         small: "px-2 py-1 text-sm",

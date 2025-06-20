@@ -1,12 +1,12 @@
+"use client";
+
 import { create } from "zustand";
 import { OnboardingStoreType } from "./types";
 import { supabase } from "@amurex/supabase";
 import { toast } from "react-hot-toast";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
-  router: useRouter(),
-  searchParams: useSearchParams(),
   slideDuration: 13000,
 
   // State
@@ -116,7 +116,8 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
   },
 
   handleConnectGmail: async () => {
-    const { setIsConnecting, router } = get();
+    const router = useRouter();
+    const { setIsConnecting } = get();
     setIsConnecting(true);
     try {
       const {
@@ -157,7 +158,8 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
   },
 
   handleConnectGoogleDocs: async () => {
-    const { setIsProcessingEmails, router } = get();
+    const router = useRouter();
+    const { setIsProcessingEmails } = get();
     setIsProcessingEmails(true);
     try {
       const {
@@ -356,13 +358,13 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
   },
 
   handleContinue: () => {
+    const router = useRouter();
     const {
       currentStep,
       selectedTools,
       handleConnectNotion,
       handleObsidianUpload,
       selctedFiles,
-      router,
     } = get();
 
     if (currentStep === 2) {
@@ -383,12 +385,12 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
   },
 
   handleCompleteSetup: () => {
+    const router = useRouter();
     const {
       selectedTools,
       handleConnectGoogleDocs,
       startCompleteImportProcess,
       smartCategorizationEnabled,
-      router,
     } = get();
 
     if (selectedTools.includes("google-docs")) {
@@ -401,7 +403,7 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
   },
 
   handleSkip: () => {
-    const { router } = get();
+    const router = useRouter();
     router.push("/search");
   },
 

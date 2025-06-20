@@ -1,3 +1,5 @@
+"use client";
+
 import { create } from "zustand";
 import { BASE_URL_BACKEND } from "@amurex/ui/lib";
 import { TranscriptDetailStoreTypes, ChatMessageType } from "./types";

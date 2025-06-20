@@ -85,7 +85,7 @@ export interface EmailsPageStoreType {
 
   processGmailLabels: () => void;
 
-  handleGmailConect: () => void;
+  handleGmailConnect: () => void;
 
   handleGmailDisconnect: (emailAddress: string) => void;
 

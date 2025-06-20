@@ -1,3 +1,5 @@
+"use client";
+
 import { create } from "zustand";
 import { Session, supabase } from "@amurex/supabase";
 import { HomeDocumentRowType, HomeStoreType, Pin, Size } from "@amurex/types";

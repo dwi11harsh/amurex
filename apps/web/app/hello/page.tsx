@@ -1,8 +1,7 @@
 import { FeatureCard } from "@amurex/web/components/FutureCard";
 import Link from "next/link";
-import { FC } from "react";
 
-const HelloPage: FC = () => {
+const HelloPage = () => {
   const features = [
     {
       imageSrc: "/search.gif",

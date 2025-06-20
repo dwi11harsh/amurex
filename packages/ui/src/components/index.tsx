@@ -9,3 +9,9 @@ export * from "./Root";
 export * from "./Navbar";
 export * from "./Callbacks";
 export * from "./MobileWarningBanner";
+export * from "./Emails";
+
+export const PROVIDER_ICONS = {
+  gmail:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png",
+};
