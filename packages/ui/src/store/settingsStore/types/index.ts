@@ -1,5 +1,16 @@
 import { Session } from "@amurex/supabase";
 
+export interface TeamMember {
+  id: string;
+  role: string;
+  created_at: string;
+  name: string | null;
+  users: {
+    id: string;
+    email: string;
+  } | null;
+}
+
 export interface SettingsStoreType {
   activeTab: string;
   setActiveTab: (tab: string) => void;
@@ -76,8 +87,10 @@ export interface SettingsStoreType {
   teamCreatedAt: string;
   setTeamCreatedAt: (createdAt: string) => void;
 
-  teamMembers: string[];
-  setTeamMembers: (members: string[]) => void;
+  teamMembers: TeamMember[];
+  setTeamMembers: (
+    updater: TeamMember[] | ((members: TeamMember[]) => TeamMember[]),
+  ) => void;
 
   membersLoading: boolean;
   setMembersLoading: (loading: boolean) => void;
@@ -100,8 +113,8 @@ export interface SettingsStoreType {
   emails: string[];
   setEmails: (emails: string[]) => void;
 
-  teamInvideCode: string;
-  setTeamInvideCode: (code: string) => void;
+  teamInviteCode: string;
+  setTeamInviteCode: (code: string) => void;
 
   copyButtonText: "Copy URL" | "Copied!";
   setCopyButtonText: (text: "Copy URL" | "Copied!") => void;
@@ -112,8 +125,8 @@ export interface SettingsStoreType {
   isObsidianModalOpen: boolean;
   setIsObsidianModalOpen: (open: boolean) => void;
 
-  selectedFiles: string[];
-  setSelectedFiles: (files: string[]) => void;
+  selectedFiles: string[] | File[];
+  setSelectedFiles: (files: string[] | File[]) => void;
 
   uploadProgress: number;
   setUploadProgress: (progress: number) => void;
@@ -190,7 +203,9 @@ export interface SettingsStoreType {
 
   fetchTeamInviteCode: () => void;
 
-  handleFileSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFileSelect: (
+    e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>,
+  ) => void;
 
   handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 

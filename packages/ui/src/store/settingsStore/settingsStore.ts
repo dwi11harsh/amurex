@@ -17,7 +17,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import { BASE_URL_BACKEND } from "@amurex/ui/lib";
 
-const useSettingsStore = create<SettingsStoreType>((set, get) => ({
+export const useSettingsStore = create<SettingsStoreType>((set, get) => ({
   // State and Setters
   activeTab: "general",
   setActiveTab: (tab) => set({ activeTab: tab }),
@@ -97,7 +97,11 @@ const useSettingsStore = create<SettingsStoreType>((set, get) => ({
   setTeamCreatedAt: (createdAt) => set({ teamCreatedAt: createdAt }),
 
   teamMembers: [],
-  setTeamMembers: (members) => set({ teamMembers: members }),
+  setTeamMembers: (updater) =>
+    set((state) => ({
+      teamMembers:
+        typeof updater === "function" ? updater(state.teamMembers) : updater,
+    })),
 
   membersLoading: false,
   setMembersLoading: (loading) => set({ membersLoading: loading }),
@@ -120,8 +124,8 @@ const useSettingsStore = create<SettingsStoreType>((set, get) => ({
   emails: [],
   setEmails: (emails) => set({ emails }),
 
-  teamInvideCode: "",
-  setTeamInvideCode: (code) => set({ teamInvideCode: code }),
+  teamInviteCode: "",
+  setTeamInviteCode: (code) => set({ teamInviteCode: code }),
 
   copyButtonText: "Copy URL",
   setCopyButtonText: (text) => set({ copyButtonText: text }),
@@ -703,59 +707,396 @@ const useSettingsStore = create<SettingsStoreType>((set, get) => ({
     return email?.[0]?.toUpperCase() || "";
   },
 
-  handleRoleUpdate: async (memberId) => {},
+  handleRoleUpdate: async (memberId) => {
+    const { setTeamMembers, setEditingMemberId, editedRole } = get();
 
-  fetchTeamDetails: async () => {},
+    try {
+      const { error } = await supabase
+        .from("team_members")
+        .update({ role: editedRole })
+        .eq("id", memberId);
 
-  handleEmailInputChange: (e) => {
-    set({ emailInput: e.target.value });
+      if (error) throw error;
+
+      setTeamMembers((members) =>
+        members.map((member) =>
+          member.id === memberId ? { ...member, role: editedRole } : member,
+        ),
+      );
+
+      setEditingMemberId(null);
+      toast.success("Member role updated successfully");
+    } catch (error) {
+      console.error("Error updating member role:", error);
+      toast.error("Failed to update member role");
+    }
   },
 
-  handleEmailInputKeyDown: (e) => {},
+  fetchTeamDetails: async () => {
+    const { setMembersLoading } = get();
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) return;
+
+      // First get the team membership
+      const { data: teamMember, error: memberError } = await supabase
+        .from("team_members")
+        .select(
+          `
+            id,
+            role,
+            team_id,
+            teams (
+              id,
+              team_name,
+              location,
+              created_at
+            )
+          `,
+        )
+        .eq("user_id", session.user.id)
+        .single();
+
+      if (memberError) throw memberError;
+
+      const {
+        setTeamName,
+        setEditedName,
+        setTeamLocation,
+        setEditedLocation,
+        setTeamCreatedAt,
+        setCurrentUserRole,
+        setTeamMembers,
+      } = get();
+
+      const team = Array.isArray(teamMember?.teams)
+        ? teamMember?.teams[0]
+        : teamMember?.teams;
+
+      if (team) {
+        setTeamName(team.team_name);
+        setEditedName(team.team_name);
+        setTeamLocation(team.location || "");
+        setEditedLocation(team.location || "");
+        setTeamCreatedAt(
+          new Date(team.created_at).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+        );
+        setCurrentUserRole(teamMember.role);
+
+        // Fetch all members for the team
+        const { data: members, error: membersError } = await supabase
+          .from("team_members")
+          .select(
+            `
+            id,
+            role,
+            created_at,
+            name,
+            users (
+              id,
+              email
+            )
+          `,
+          )
+          .eq("team_id", team.id);
+
+        if (membersError) throw membersError;
+
+        setTeamMembers((members as any) || []);
+      }
+    } catch (error) {
+      console.error("Error fetching team details:", error);
+      toast.error("Failed to load team details");
+    } finally {
+      setMembersLoading(false);
+    }
+  },
+
+  handleEmailInputChange: (e) => {
+    const { setEmailInput } = get();
+    setEmailInput(e.target.value);
+  },
+
+  handleEmailInputKeyDown: (e) => {
+    const { emailInput, addEmail } = get();
+    if (e.key === "Enter" && emailInput.trim()) {
+      addEmail();
+    }
+  },
 
   addEmail: () => {
-    const { emailInput, emails } = get();
-    if (emailInput && !emails.includes(emailInput)) {
-      set({ emails: [...emails, emailInput], emailInput: "" });
+    const { emailInput, emails, setEmails, setEmailInput } = get();
+
+    if (emailInput.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput)) {
+      setEmails([...emails, emailInput.trim()]);
+      setEmailInput("");
     }
   },
 
   removeEmail: (index) => {
-    const { emails } = get();
-    set({ emails: emails.filter((_, i) => i !== index) });
+    const { setEmails, emails } = get();
+    setEmails(emails.filter((_, i) => i !== index));
   },
 
-  handleCopyInviteLink: async () => {},
+  handleCopyInviteLink: async () => {
+    const { teamInviteCode, setCopyButtonText } = get();
 
-  sendInvites: async () => {},
+    try {
+      await navigator.clipboard.writeText(
+        `${window.location.host}/teams/join/${teamInviteCode}`,
+      );
+      setCopyButtonText("Copied!");
+      setTimeout(() => setCopyButtonText("Copy URL"), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+      toast.error("Failed to copy link");
+    }
+  },
 
-  fetchTeamInviteCode: async () => {},
+  sendInvites: async () => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) return;
 
-  handleFileSelect: (e) => {},
+      // Get team_id from team_members
+      const { data: teamMember, error: memberError } = await supabase
+        .from("team_members")
+        .select("team_id")
+        .eq("user_id", session.user.id)
+        .single();
+
+      if (memberError) throw memberError;
+
+      const { emails } = get();
+
+      // Send invites
+      const response = await fetch("/api/teams/invite", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          teamId: teamMember.team_id,
+          emails: emails,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success("Invites sent successfully!");
+        const { setEmails, setIsInvitedModalOpen } = get();
+        setEmails([]);
+        setIsInvitedModalOpen(false);
+      } else {
+        throw new Error(data.error || "Failed to send invites");
+      }
+    } catch (error) {
+      console.error("Error sending invites:", error);
+      toast.error("Failed to send invites");
+    }
+  },
+
+  fetchTeamInviteCode: async () => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const { data: teamMember, error: memberError } = await supabase
+        .from("team_members")
+        .select("team_id")
+        .eq("user_id", session.user.id)
+        .single();
+
+      if (memberError) throw memberError;
+
+      const { data: team, error: teamError } = await supabase
+        .from("teams")
+        .select("invite_code")
+        .eq("id", teamMember.team_id)
+        .single();
+
+      if (teamError) throw teamError;
+
+      const { setTeamInviteCode } = get();
+      setTeamInviteCode(team.invite_code);
+    } catch (error) {
+      console.error("Error fetching team invite code:", error);
+    }
+  },
+
+  handleFileSelect: (
+    e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>,
+  ) => {
+    const { setSelectedFiles } = get();
+    const files = Array.from(
+      // @ts-ignore
+      e.target?.files || e.dataTransfer?.files || [],
+    ) as File[];
+    const mdFiles = files.filter((file) => file.name.endsWith(".md"));
+    setSelectedFiles(mdFiles);
+  },
 
   handleDragOver: (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.add("border-[#9334E9]");
   },
 
   handleDragLeave: (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.remove("border-[#9334E9]");
   },
 
   handleDrop: (e) => {
+    const { handleFileSelect } = get();
     e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.remove("border-[#9334E9]");
+    handleFileSelect(e);
   },
 
-  handleObsidianUplaod: async () => {},
+  handleObsidianUplaod: async () => {
+    const { selectedFiles, setIsUploading, setUploadProgress } = get();
 
-  handleTabChange: (tab) => {
-    set({ activeTab: tab });
+    if (selectedFiles.length === 0) return;
+
+    setIsUploading(true);
+    setUploadProgress(0);
+
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) throw new Error("No session found");
+
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const file = selectedFiles[i];
+        if (!(file instanceof File)) continue; // TODO?: this check was not in the original codebase
+        const content = await file.text();
+
+        const response = await fetch("/api/obsidian/upload", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fileName: file.name,
+            content: content,
+            userId: session.user.id,
+          }),
+        });
+
+        if (!response.ok) throw new Error("Upload failed");
+
+        setUploadProgress(((i + 1) / selectedFiles.length) * 100);
+      }
+
+      const { setIsObsidianModalOpen, setSelectedFiles } = get();
+
+      toast.success("Markdown files uploaded successfully!");
+      setIsObsidianModalOpen(false);
+      setSelectedFiles([]);
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      toast.error("Failed to upload files");
+    } finally {
+      setIsUploading(false);
+      setUploadProgress(0);
+    }
   },
 
-  handleEmailLabelToggle: async (checked) => {},
+  handleTabChange: (tabName) => {
+    // Update URL with new tab
+    const router = useRouter();
+    const { setActiveTab } = get();
+    router.push(`${window.location.pathname}?tab=${tabName}`);
+    setActiveTab(tabName);
+  },
 
-  fetchUserId: async () => {},
+  handleEmailLabelToggle: async (checked) => {
+    const { setEmailLabelingEnabled } = get();
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (session) {
+        const { error } = await supabase
+          .from("users")
+          .update({ email_tagging_enabled: checked })
+          .eq("id", session.user.id);
 
-  handleGoogleDocsConnect: async () => {},
+        if (error) throw error;
+        setEmailLabelingEnabled(checked);
+        toast.success(
+          checked ? "Email labeling enabled" : "Email labeling disabled",
+        );
+      }
+    } catch (error) {
+      console.error("Error updating email labeling settings:", error);
+      toast.error("Failed to update email labeling settings");
+    }
+  },
+
+  fetchUserId: async () => {
+    const { setUserId } = get();
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (session && session.user) {
+      setUserId(session.user.id);
+    }
+  },
+
+  handleGoogleDocsConnect: async () => {
+    const { setIsImporting, setImportSource, userId } = get();
+
+    try {
+      if (!userId) {
+        toast.error("You must be logged in to connect Google Docs");
+        return;
+      }
+
+      setIsImporting(true);
+      setImportSource("Google Docs");
+
+      const response = await fetch("/api/google/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+          clientId: 2, // Always use client ID 2
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        // Store a flag to indicate we want to import after connection
+        localStorage.setItem("pendingGoogleDocsImport", "true");
+        window.location.href = data.url;
+      } else {
+        throw new Error("Failed to get Google auth URL");
+      }
+    } catch (error) {
+      console.error("Error connecting Google Docs:", error);
+      toast.error("Failed to connect Google Docs");
+      setIsImporting(false);
+      setImportSource("");
+    }
+  },
 }));
-
-export default useSettingsStore;
