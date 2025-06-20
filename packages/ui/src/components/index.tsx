@@ -13,6 +13,7 @@ export * from "./MobileWarningBanner";
 export * from "./Emails";
 export * from "./TranscriptList";
 export * from "./MeetDetail";
+export * from "./TranscriptSummary";
 
 export const PROVIDER_ICONS = {
   gmail:
