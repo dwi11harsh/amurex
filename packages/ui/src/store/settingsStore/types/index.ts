@@ -60,7 +60,7 @@ export interface SettingsStoreType {
   showSignOutConfirm: boolean;
   setShowSignOutConfirm: (value: boolean) => void;
 
-  isProessingEmails: boolean;
+  isProcessingEmails: boolean;
   setIsProcessingEmails: (value: boolean) => void;
 
   emailLabelEnabled: boolean;
@@ -104,8 +104,8 @@ export interface SettingsStoreType {
   editedRole: string;
   setEditedRole: (role: string) => void;
 
-  isInvitedModalOpen: boolean;
-  setIsInvitedModalOpen: (open: boolean) => void;
+  isInviteModalOpen: boolean;
+  setIsInviteModalOpen: (open: boolean) => void;
 
   emailInput: string;
   setEmailInput: (email: string) => void;
@@ -125,8 +125,8 @@ export interface SettingsStoreType {
   isObsidianModalOpen: boolean;
   setIsObsidianModalOpen: (open: boolean) => void;
 
-  selectedFiles: string[] | File[];
-  setSelectedFiles: (files: string[] | File[]) => void;
+  selectedFiles: File[];
+  setSelectedFiles: (files: File[]) => void;
 
   uploadProgress: number;
   setUploadProgress: (progress: number) => void;
@@ -140,8 +140,8 @@ export interface SettingsStoreType {
   gmailPermissionError: boolean;
   setGmailPermissionError: (error: boolean) => void;
 
-  showBroaderAcdessModal: boolean;
-  setShowBroaderAcdessModal: (value: boolean) => void;
+  showBroaderAccessModal: boolean;
+  setShowBroaderAccessModal: (value: boolean) => void;
 
   googleTokenVersion: "full";
   setGoogleTokenVersion: (version: number) => void;
@@ -181,7 +181,7 @@ export interface SettingsStoreType {
 
   logUserAction: (userId: string, eventType: string) => void;
 
-  hadleSave: (field: string) => void;
+  handleSave: (field: string) => void;
 
   getInitials: (fullName: string, email: string) => string;
 
@@ -204,14 +204,14 @@ export interface SettingsStoreType {
   fetchTeamInviteCode: () => void;
 
   handleFileSelect: (
-    e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>,
+    e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLElement>,
   ) => void;
 
-  handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+  handleDragOver: (e: React.DragEvent<HTMLElement>) => void;
 
-  handleDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
+  handleDragLeave: (e: React.DragEvent<HTMLElement>) => void;
 
-  handleDrop: (e: React.DragEvent<HTMLDivElement>) => void;
+  handleDrop: (e: React.DragEvent<HTMLElement>) => void;
 
   handleObsidianUplaod: () => void;
 

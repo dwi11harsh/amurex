@@ -71,8 +71,8 @@ export const useSettingsStore = create<SettingsStoreType>((set, get) => ({
   showSignOutConfirm: false,
   setShowSignOutConfirm: (value) => set({ showSignOutConfirm: value }),
 
-  isProessingEmails: false,
-  setIsProcessingEmails: (value) => set({ isProessingEmails: value }),
+  isProcessingEmails: false,
+  setIsProcessingEmails: (value) => set({ isProcessingEmails: value }),
 
   emailLabelEnabled: false,
   setEmailLabelEnabled: (value) => set({ emailLabelEnabled: value }),
@@ -117,8 +117,8 @@ export const useSettingsStore = create<SettingsStoreType>((set, get) => ({
   editedRole: "",
   setEditedRole: (role) => set({ editedRole: role }),
 
-  isInvitedModalOpen: false,
-  setIsInvitedModalOpen: (open) => set({ isInvitedModalOpen: open }),
+  isInviteModalOpen: false,
+  setIsInviteModalOpen: (open) => set({ isInviteModalOpen: open }),
 
   emailInput: "",
   setEmailInput: (email) => set({ emailInput: email }),
@@ -153,8 +153,8 @@ export const useSettingsStore = create<SettingsStoreType>((set, get) => ({
   gmailPermissionError: false,
   setGmailPermissionError: (error) => set({ gmailPermissionError: error }),
 
-  showBroaderAcdessModal: false,
-  setShowBroaderAcdessModal: (value) => set({ showBroaderAcdessModal: value }),
+  showBroaderAccessModal: false,
+  setShowBroaderAccessModal: (value) => set({ showBroaderAccessModal: value }),
 
   googleTokenVersion: "full",
   setGoogleTokenVersion: (version) => set({ googleTokenVersion: "full" }),
@@ -646,7 +646,7 @@ export const useSettingsStore = create<SettingsStoreType>((set, get) => ({
     }
   },
 
-  hadleSave: async (field) => {
+  handleSave: async (field) => {
     const { editedLocation, editedName } = get();
     try {
       const {
@@ -895,9 +895,9 @@ export const useSettingsStore = create<SettingsStoreType>((set, get) => ({
 
       if (data.success) {
         toast.success("Invites sent successfully!");
-        const { setEmails, setIsInvitedModalOpen } = get();
+        const { setEmails, setIsInviteModalOpen } = get();
         setEmails([]);
-        setIsInvitedModalOpen(false);
+        setIsInviteModalOpen(false);
       } else {
         throw new Error(data.error || "Failed to send invites");
       }
@@ -938,7 +938,7 @@ export const useSettingsStore = create<SettingsStoreType>((set, get) => ({
   },
 
   handleFileSelect: (
-    e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>,
+    e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLElement>,
   ) => {
     const { setSelectedFiles } = get();
     const files = Array.from(
@@ -949,19 +949,19 @@ export const useSettingsStore = create<SettingsStoreType>((set, get) => ({
     setSelectedFiles(mdFiles);
   },
 
-  handleDragOver: (e) => {
+  handleDragOver: (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
     e.currentTarget.classList.add("border-[#9334E9]");
   },
 
-  handleDragLeave: (e) => {
+  handleDragLeave: (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
     e.currentTarget.classList.remove("border-[#9334E9]");
   },
 
-  handleDrop: (e) => {
+  handleDrop: (e: React.DragEvent<HTMLElement>) => {
     const { handleFileSelect } = get();
     e.preventDefault();
     e.stopPropagation();
