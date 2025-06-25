@@ -35,6 +35,10 @@ export const useSearchStore = create<SearchStoreType>()((set, get) => ({
   session: null,
   setSession: (session: Session | null) => set({ session }),
 
+  // Search Query
+  query: "",
+  setQuery: (query: string) => set({ query }),
+
   // Search results
   searchResults: [],
   setSearchResults: (results) => set({ searchResults: results }),
@@ -45,6 +49,11 @@ export const useSearchStore = create<SearchStoreType>()((set, get) => ({
 
   isSearchInitiated: false,
   setIsSearchInitiated: (value: boolean) => set({ isSearchInitiated: value }),
+
+  // Spotlight state
+  spotlightInputValue: "",
+  setSpotlightInputValue: (value: string) =>
+    set({ spotlightInputValue: value }),
 
   // Suggested prompts
   suggestedPrompts: [],
@@ -184,8 +193,9 @@ export const useSearchStore = create<SearchStoreType>()((set, get) => ({
     }
   },
 
-  handleSpotlightSearch: (query) => {
+  handleSpotlightSearch: () => {
     const {
+      query,
       setShowSpotlight,
       setInputValue,
       setIsSearchInitiated,
@@ -967,5 +977,19 @@ sources: ${JSON.stringify(item.sources)}`,
         console.error("Unexpected error:", error);
         setIsSearching(false);
       });
+  },
+  handleSpotlightSearchQuery: (query) => {
+    const {
+      setShowSpotlight,
+      setInputValue,
+      setIsSearchInitiated,
+      sendMessage,
+    } = get();
+
+    setShowSpotlight(false);
+    setInputValue(query);
+    setIsSearchInitiated(true);
+    // Call sendMessage with isNewSearch=true
+    sendMessage(query, true);
   },
 }));

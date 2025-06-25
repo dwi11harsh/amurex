@@ -96,6 +96,9 @@ export interface SearchStoreType {
   inputValue: string;
   setInputValue: (value: string) => void;
 
+  query: string;
+  setQuery: (value: string) => void;
+
   messageHistory: MessageHistoryItem[];
   setMessageHistory: (message: string) => void;
 
@@ -110,6 +113,9 @@ export interface SearchStoreType {
 
   isSearchInitiated: boolean;
   setIsSearchInitiated: (value: boolean) => void;
+
+  spotlightInputValue: string;
+  setSpotlightInputValue: (value: string) => void;
 
   suggestedPrompts: MessagePayload[];
   setSuggestedPrompts: (prompts: MessagePayload[]) => void;
@@ -224,7 +230,7 @@ export interface SearchStoreType {
 
   handleHotKey: (e: KeyboardEvent) => void;
 
-  handleSpotlightSearch: (query: string) => void;
+  handleSpotlightSearch: () => void;
 
   handleNewSearch: () => void;
 
@@ -256,4 +262,6 @@ export interface SearchStoreType {
   fetchSession: () => any;
 
   logUserAction: (userId: string, eventType: string) => void;
+
+  handleSpotlightSearchQuery: (query: string) => void;
 }
