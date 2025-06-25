@@ -50,8 +50,8 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
   showEmailStats: false,
   setShowEmailStats: (value) => set({ showEmailStats: value }),
 
-  selctedFiles: [],
-  setSelectedFiles: (files) => set({ selctedFiles: files }),
+  selectedFiles: [],
+  setSelectedFiles: (files) => set({ selectedFiles: files }),
 
   isUploading: false,
   setIsUploading: (uploading) => set({ isUploading: uploading }),
@@ -306,13 +306,13 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
 
   handleObsidianUpload: async () => {
     const {
-      selctedFiles,
+      selectedFiles,
       setIsUploading,
       setUploadProgress,
       setCurrentStep,
       setSelectedFiles,
     } = get();
-    if (selctedFiles.length === 0) {
+    if (selectedFiles.length === 0) {
       toast.error("Please select at least one Markdown file");
       return;
     }
@@ -326,8 +326,8 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
       } = await supabase.auth.getSession();
       if (!session) throw new Error("No session found");
 
-      for (let i = 0; i < selctedFiles.length; i++) {
-        const file = selctedFiles[i] as File;
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const file = selectedFiles[i] as File;
         const content = await file.text();
 
         const response = await fetch("/api/obsidian/upload", {
@@ -341,7 +341,7 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
         });
 
         if (!response.ok) throw new Error("Upload failed");
-        setUploadProgress(((i + 1) / selctedFiles.length) * 100);
+        setUploadProgress(((i + 1) / selectedFiles.length) * 100);
       }
 
       toast.success("Markdown files uploaded successfully!");
@@ -364,7 +364,7 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
       selectedTools,
       handleConnectNotion,
       handleObsidianUpload,
-      selctedFiles,
+      selectedFiles,
     } = get();
 
     if (currentStep === 2) {
@@ -373,7 +373,7 @@ export const useOnboardingStore = create<OnboardingStoreType>((set, get) => ({
         handleConnectNotion();
       } else if (
         selectedTools.includes("obsidian") &&
-        selctedFiles.length > 0
+        selectedFiles.length > 0
       ) {
         handleObsidianUpload();
       } else {

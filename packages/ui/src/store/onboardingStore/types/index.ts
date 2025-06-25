@@ -46,7 +46,7 @@ export interface OnboardingStoreType {
   showEmailStats: boolean;
   setShowEmailStats: (value: boolean) => void;
 
-  selctedFiles: File[];
+  selectedFiles: File[];
   setSelectedFiles: (files: File[]) => void;
 
   isUploading: boolean;

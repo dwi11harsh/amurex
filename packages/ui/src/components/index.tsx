@@ -15,6 +15,7 @@ export * from "./TranscriptList";
 export * from "./MeetDetail";
 export * from "./TranscriptSummary";
 export * from "./Settings";
+export * from "./Onboarding";
 
 export const PROVIDER_ICONS = {
   google:
