@@ -1,6 +1,5 @@
-import { Session } from "@amurex/supabase";
+import { SupabaseSession } from "@amurex/supabase";
 
-//NoteEditorTile
 export interface NoteEditorTileProps {
   onSave: (note: string) => void;
   onOpenFocusMode: () => void;
@@ -37,7 +36,7 @@ export interface HomeDocumentRowType {
 
 export interface HomeStoreType {
   // State
-  session: Session | null;
+  session: SupabaseSession | null;
   pins: Pin[];
   isFocusMode: boolean;
   focusNoteContent: string;
@@ -47,7 +46,7 @@ export interface HomeStoreType {
   showIntegrationsPopup: boolean;
 
   // Actions
-  setSession: (session: Session | null) => void;
+  setSession: (session: SupabaseSession | null) => void;
   setPins: (pins: Pin[] | ((prev: Pin[]) => Pin[])) => void;
   setIsFocusMode: (value: boolean) => void;
   setFocusNoteContent: (content: string) => void;

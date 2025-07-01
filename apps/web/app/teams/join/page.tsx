@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { supabase, Session } from "@amurex/supabase";
+import { supabase, SupabaseSession as Session } from "@amurex/supabase";
 import { Input } from "@amurex/ui/components";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";

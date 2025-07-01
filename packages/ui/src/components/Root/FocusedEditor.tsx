@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { Session, supabase } from "@amurex/supabase";
+import { SupabaseSession as Session, supabase } from "@amurex/supabase";
 import { Button } from "@amurex/ui/components";
 import { X } from "lucide-react";
 

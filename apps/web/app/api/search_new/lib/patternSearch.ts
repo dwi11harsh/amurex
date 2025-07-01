@@ -1,4 +1,4 @@
-import { supabaseAdminClient as supabase } from "@amurex/web/lib";
+import { supabaseAdminClient as supabase } from "@amurex/supabase";
 import { NextResponse } from "next/server";
 import { SearchResult } from "../types";
 

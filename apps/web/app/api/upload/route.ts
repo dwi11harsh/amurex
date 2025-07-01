@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { supabaseAdminClient as supabase } from "@amurex/web/lib";
+import { supabaseAdminClient as supabase } from "@amurex/supabase";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { groqClient as groq } from "@amurex/web/lib";
 

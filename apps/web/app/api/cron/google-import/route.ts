@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { validateGoogleAccess } from "./lib";
-import { supabaseAdminClient as supabase } from "@amurex/web/lib";
+import { supabaseAdminClient as supabase } from "@amurex/supabase";
 import { GoogleClient, ProcessResult, UserClientData } from "./types";
 
 // Vercel Cron configuration

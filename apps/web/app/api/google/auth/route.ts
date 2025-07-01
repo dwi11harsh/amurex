@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { getOAuth2ClientForGoogle as getOAuth2Client } from "./lib";
 import { PostRequestBody } from "./types";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   // For GET requests, we don't have a userId, so use default client
   const { oauth2Client } = await getOAuth2Client();
 

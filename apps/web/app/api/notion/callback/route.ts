@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdminClient as supabase } from "@amurex/web/lib";
+import { supabaseAdminClient as supabase } from "@amurex/supabase";
 import { NotionOAuthResponse } from "./types";
 
 export async function GET(req: NextRequest) {
@@ -70,8 +70,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { access_token, workspace_id, bot_id, state, userId } =
-      await req.json();
+    const { access_token, workspace_id, bot_id, userId } = await req.json();
 
     if (!userId) {
       return NextResponse.json(

@@ -1,4 +1,4 @@
-import { createClient, SupabaseClient } from "@amurex/supabase";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL)
   throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL");

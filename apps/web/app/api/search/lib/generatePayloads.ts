@@ -1,4 +1,4 @@
-import { supabaseAdminClient as adminSupabase } from "@amurex/web/lib";
+import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
 
 // 3. Send payload to Supabase table
 export const sendPayload = async (

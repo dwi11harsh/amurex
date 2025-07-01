@@ -99,7 +99,7 @@ export const extractBlockContent = (
       return "[Unsupported content]";
     default:
       // TypeScript will error here if there's an unhandled case
-      const _exhaustiveCheck: never = block;
+      // const _exhaustiveCheck: never = block;
       return `[${(block as { type: string }).type} block]`;
   }
 };

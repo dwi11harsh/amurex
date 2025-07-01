@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Video, Mail, Settings, Search } from "lucide-react";
-import { Session, supabase } from "@amurex/supabase";
+import { SupabaseSession as Session, supabase } from "@amurex/supabase";
 import { Button } from "@amurex/ui/components";
 
 export const Navbar = () => {

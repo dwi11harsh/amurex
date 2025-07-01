@@ -1,7 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-import { Session, supabase } from "@amurex/supabase";
+import { supabase } from "@amurex/supabase";
 import { HomeDocumentRowType, HomeStoreType, Pin, Size } from "@amurex/types";
 
 export const useHomeStore = create<HomeStoreType>((set, get) => ({

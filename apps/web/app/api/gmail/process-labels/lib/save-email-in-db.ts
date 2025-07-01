@@ -1,6 +1,6 @@
 // Update storeEmailInDatabase function to include embeddings
 
-import { supabaseAdminClient as adminSupabase } from "@amurex/web/lib";
+import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
 
 /**
  * Stores an email in the database with optional embeddings

@@ -1,7 +1,5 @@
-import { Session, SupabaseClient } from "@supabase/supabase-js";
-import { createClient } from "@supabase/supabase-js";
+export type { Session as SupabaseSession } from "@supabase/supabase-js";
 
 export * from "./SupabaseClient";
-
-export type { Session, SupabaseClient };
-export { createClient };
+export * from "./SupabaseAdminClient";
+export * from "./CreateClientWithAccessToken";

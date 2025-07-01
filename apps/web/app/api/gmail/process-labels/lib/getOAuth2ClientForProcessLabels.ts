@@ -1,8 +1,6 @@
-import { google, Auth } from "googleapis";
-import {
-  supabaseAdminClient as adminSupabase,
-  getOauth2Client,
-} from "@amurex/web/lib";
+import { Auth } from "googleapis";
+import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { getOauth2Client } from "@amurex/web/lib";
 
 interface UserData {
   google_cohort: number;

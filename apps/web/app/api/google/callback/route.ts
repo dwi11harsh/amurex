@@ -1,9 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
-import { google } from "googleapis";
-import {
-  getOauth2Client,
-  supabaseAdminClient as supabase,
-} from "@amurex/web/lib";
+import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { getOauth2Client } from "@amurex/web/lib";
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);

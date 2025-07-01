@@ -5,10 +5,8 @@ import {
   storeEmailInDatabase,
   validateGmailAccess,
 } from "./lib";
-import {
-  supabaseAdminClient as adminSupabase,
-  getOauth2Client,
-} from "@amurex/web/lib";
+import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { getOauth2Client } from "@amurex/web/lib";
 import { google } from "googleapis";
 import { GmailMessagePart, LabelRequestBody } from "./types";
 

@@ -1,8 +1,6 @@
 import { GoogleClient, OAuthClientResult } from "../types";
-import {
-  getOauth2Client,
-  supabaseAdminClient as supabase,
-} from "@amurex/web/lib";
+import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { getOauth2Client } from "@amurex/web/lib";
 
 // Function to get OAuth client based on user's google_token_version
 export const getOAuth2ClientForGoogle = async (

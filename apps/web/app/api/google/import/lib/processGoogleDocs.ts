@@ -1,11 +1,8 @@
 import { google } from "googleapis";
 import crypto from "crypto";
-import {
-  supabaseAdminClient as adminSupabase,
-  getOauth2Client,
-} from "@amurex/web/lib";
+import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { getOauth2Client } from "@amurex/web/lib";
 import { generateTags } from "./generateTags";
-import { SupabaseClient } from "@amurex/supabase";
 
 interface GoogleTokens {
   access_token?: string | null;
@@ -15,7 +12,6 @@ interface GoogleTokens {
 
 export const processGoogleDocs = async (
   session: { id: string },
-  supabase: SupabaseClient,
   providedTokens: GoogleTokens | null = null,
 ): Promise<any[]> => {
   try {

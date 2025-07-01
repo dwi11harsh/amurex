@@ -5,7 +5,8 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": []
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -13,30 +14,31 @@
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "web#build": {
-      "env": [
-        "NEXT_PUBLIC_SUPABASE_URL",
-        "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-        "SUPABASE_SERVICE_ROLE_KEY",
-        "SUPABASE_ANON_KEY",
-        "SUPABASE_URL",
-        "OPENAI_API_KEY",
-        "NEXT_PUBLIC_BASE_URL",
-        "NEXT_PUBLIC_APP_URL",
-        "NOTION_CLIENT_SECRET",
-        "NOTION_CLIENT_ID",
-        "NOTION_AUTH_URL",
-        "NOTION_REDIRECT_URI",
-        "BRAVE_SEARCH_API_KEY",
-        "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET",
-        "GOOGLE_REDIRECT_URI",
-        "GOOGLE_CALENDAR_REDIRECT_URI",
-        "MIXEDBREAD_API_KEY",
-        "MISTRAL_API_KEY",
-        "RESEND_API_KEY"
-      ]
     }
-  }
+  },
+  "globalEnv": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "SUPABASE_URL",
+    "SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "GEMINI_API_KEY",
+    "OPENAI_API_KEY",
+    "GROQ_API_KEY",
+    "MISTRAL_ORGANIZATION_ID",
+    "MISTRAL_API_KEY",
+    "RESEND_API_KEY",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_REDIRECT_URI",
+    "GOOGLE_REDIRECT_URI_NEW",
+    "GOOGLE_APPLICATION_CREDENTIALS",
+    "CRON_SECRET",
+    "NOTION_CLIENT_ID",
+    "NOTION_CLIENT_SECRET",
+    "NOTION_REDIRECT_URI",
+    "NEXT_PUBLIC_APP_URL",
+    "MODEL_NAME",
+    "BRAIN_API_KEY"
+  ]
 }

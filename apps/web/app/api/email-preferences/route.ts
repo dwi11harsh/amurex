@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabaseAdmin } from "@amurex/web/lib";
+import { supabaseAdminClient as supabaseAdmin } from "@amurex/supabase";
 import { EmailPreferences, PostRequestBody, UserRow } from "./types";
 
 export async function POST(req: Request): Promise<NextResponse> {

@@ -1,5 +1,5 @@
 import { getOauth2Client } from "@amurex/web/lib";
-import { google, Auth } from "googleapis";
+import { google } from "googleapis";
 import { ClientsMap, ValidationResult } from "../types";
 
 /**

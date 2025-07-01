@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabase } from "@amurex/web/lib";
+import { supabaseAdminClient as supabase } from "@amurex/supabase";
 import { EmbeddingResponse, SearchResult } from "../types";
 
 export const aiSearch = async (

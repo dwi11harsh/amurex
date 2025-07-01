@@ -1,8 +1,6 @@
 import fetch from "node-fetch";
-import {
-  supabaseAdminClient as adminSupabase,
-  groqClient as groq,
-} from "@amurex/web/lib";
+import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { groqClient as groq } from "@amurex/web/lib";
 import { Source, ChatMessage } from "./types";
 import { generatePrompts } from "./lib";
 

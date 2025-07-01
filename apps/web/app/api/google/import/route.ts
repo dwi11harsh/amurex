@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { createClient, SupabaseClient } from "@amurex/supabase";
+import { CreateClientWithAccessToken } from "@amurex/supabase";
 import { processGoogleDocs } from "./lib";
-import { supabaseAdminClient as adminSupabase } from "@amurex/web/lib";
+import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
 
 export const maxDuration = 300;
 export const dynamic = "force-dynamic";
@@ -32,20 +32,10 @@ export async function POST(req: Request) {
     let userEmail = req.headers.get("x-user-email");
 
     // Create Supabase client - either with the provided access token or with service role
-    let supabaseClient: SupabaseClient;
+    let supabaseClient;
     if (accessToken) {
       // Client-side request with Supabase access token
-      supabaseClient = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-        process.env.SUPABASE_SERVICE_ROLE_KEY as string,
-        {
-          global: {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        },
-      );
+      supabaseClient = CreateClientWithAccessToken(accessToken);
     } else {
       // Server-side request (from callback) without Supabase token
       supabaseClient = adminSupabase;
@@ -80,11 +70,7 @@ export async function POST(req: Request) {
     let docsResults: any[] = [];
     if (userData?.google_token_version === "full") {
       // Process the documents using the appropriate tokens
-      docsResults = await processGoogleDocs(
-        { id: userId },
-        supabaseClient,
-        googleTokens,
-      );
+      docsResults = await processGoogleDocs({ id: userId }, googleTokens);
 
       // Send email notification if documents were processed
       if (docsResults.length > 0) {
@@ -186,7 +172,7 @@ export async function GET(req: Request) {
     let docsResults: any[] = [];
     if (userData?.google_token_version === "full") {
       // Process the documents
-      docsResults = await processGoogleDocs({ id: userId }, adminSupabase);
+      docsResults = await processGoogleDocs({ id: userId });
     } else {
       console.log("Skipping Google Docs import - token version is not 'full'");
       docsResults = [{ status: "skipped", reason: "Insufficient permissions" }];

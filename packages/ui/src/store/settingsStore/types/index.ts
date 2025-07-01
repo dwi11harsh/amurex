@@ -1,4 +1,4 @@
-import { Session } from "@amurex/supabase";
+import { SupabaseSession } from "@amurex/supabase";
 
 export interface TeamMember {
   id: string;
@@ -134,8 +134,8 @@ export interface SettingsStoreType {
   isUploading: boolean;
   setIsUploading: (uploading: boolean) => void;
 
-  session: Session | null;
-  setSession: (session: Session | null) => void;
+  session: SupabaseSession | null;
+  setSession: (session: SupabaseSession | null) => void;
 
   gmailPermissionError: boolean;
   setGmailPermissionError: (error: boolean) => void;

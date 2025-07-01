@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { validateGmailAccess } from "./lib";
-import { supabaseAdminClient as supabaseAdmin } from "@amurex/web/lib";
+import { supabaseAdminClient as supabaseAdmin } from "@amurex/supabase";
 import { GoogleClient, ProcessResult, User, UserClientConfig } from "./types";
 
 export const dynamic = "force-dynamic";

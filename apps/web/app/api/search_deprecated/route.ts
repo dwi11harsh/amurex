@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabase } from "@amurex/web/lib";
+import { supabaseAdminClient as supabase } from "@amurex/supabase";
 
 export async function POST(req: Request) {
   const { query, searchType, session } = await req.json();

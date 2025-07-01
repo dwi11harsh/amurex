@@ -29,14 +29,10 @@ const HomeClient = (): JSX.Element => {
   const router = useRouter();
 
   const {
-    session,
     pins,
     isFocusMode,
-    focusNoteContent,
     searchTerm,
-    isAiSearching,
     isLoading,
-    showIntegrationsPopup,
     setSession,
     setIsFocusMode,
     setFocusNoteContent,

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as adminSupabase } from "@amurex/web/lib";
+import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
 import { groqClient as groq } from "@amurex/web/lib";
 import crypto from "crypto";
 import type {
