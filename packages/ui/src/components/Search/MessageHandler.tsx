@@ -24,6 +24,30 @@ type MessageHandlerProps = {
   sendMessage?: (text: string) => void;
 };
 
+// Wrappers to adapt props for components with different signatures
+const SourcesWrapper = ({ content }: { content: string }) => {
+  let parsedContent: never[] = [];
+  try {
+    parsedContent = JSON.parse(content);
+    if (!Array.isArray(parsedContent)) parsedContent = [];
+  } catch {
+    parsedContent = [];
+  }
+  return <Sources content={parsedContent} />;
+};
+
+const GPTWrapper = ({ content }: { content: string }) => (
+  <GPT content={content} />
+);
+
+const FollowUpWrapper = ({
+  content,
+  sendMessage,
+}: {
+  content: string;
+  sendMessage?: (text: string) => void;
+}) => <FollowUp content={content} sendMessage={sendMessage} />;
+
 const MessageHandler = memo(
   ({
     message = { type: "" as MessageType, content: "" },
@@ -37,11 +61,11 @@ const MessageHandler = memo(
       }>
     > = {
       Query,
-      Sources,
+      Sources: SourcesWrapper,
       VectorCreation,
       Heading,
-      GPT,
-      FollowUp,
+      GPT: GPTWrapper,
+      FollowUp: FollowUpWrapper,
     };
 
     const Component = COMPONENT_MAP[message.type];
