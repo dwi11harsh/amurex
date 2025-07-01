@@ -13,6 +13,9 @@ import { useRouter } from "next/navigation";
 import { BASE_URL_BACKEND } from "@amurex/ui/lib";
 
 export const useSearchStore = create<SearchStoreType>()((set, get) => ({
+  dropDownTimeout: null,
+  setDropDownTimeout: (value) => set({ dropDownTimeout: value }),
+
   // Input state
   inputValue: "",
   setInputValue: (value: string) => set({ inputValue: value }),

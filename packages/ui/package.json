@@ -39,6 +39,7 @@
     "novel-lightweight": "^0.2.1",
     "react-hot-toast": "^2.5.2",
     "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "sonner": "^2.0.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"

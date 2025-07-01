@@ -6,6 +6,8 @@ export interface MessageHistoryItem {
   updated_at?: string;
 }
 
+type DropDownTimeOut = ReturnType<typeof setTimeout> | null;
+
 export interface SearchResultType {
   query: string;
   sources: string[];
@@ -92,7 +94,15 @@ interface SourceFilters {
   showGmail?: boolean; // Controls both gmail and email
 }
 
+interface GmailProfileType {
+  email: string;
+  type: string;
+}
+
 export interface SearchStoreType {
+  dropDownTimeout: DropDownTimeOut;
+  setDropDownTimeout: (value: DropDownTimeOut) => void;
+
   inputValue: string;
   setInputValue: (value: string) => void;
 
@@ -220,8 +230,8 @@ export interface SearchStoreType {
   randomPrompt: string;
   setRandomPrompt: (value: string) => void;
 
-  gmailProfiles: string[];
-  setGmailProfiles: (value: string[]) => void;
+  gmailProfiles: GmailProfileType[];
+  setGmailProfiles: (value: GmailProfileType[]) => void;
 
   isGmailDropDownVisible: boolean;
   setIsGmailDropDownVisible: (value: boolean) => void;
