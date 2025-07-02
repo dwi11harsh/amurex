@@ -1,9 +1,10 @@
 export interface MessageHistoryItem {
-  id: number;
-  user_id: string;
-  payload: MessagePayload;
-  created_at: string;
+  id?: number;
+  user_id?: string;
+  payload?: MessagePayload;
+  created_at?: string;
   updated_at?: string;
+  type: "GPT" | "USER" | string;
 }
 
 type DropDownTimeOut = ReturnType<typeof setTimeout> | null;
@@ -23,7 +24,7 @@ export interface SearchResultType {
 // The payload can contain different types of messages
 export type MessagePayload = {
   type: "GPT" | "USER" | string;
-  content?: string;
+  content?: MessageHistoryItem[];
   text?: string;
   [key: string]: any; // Allow for additional flexible properties
 };
@@ -100,6 +101,9 @@ interface GmailProfileType {
 }
 
 export interface SearchStoreType {
+  selectedSuggestion: number;
+  setSelectedSuggestion: (value: number) => void;
+
   dropDownTimeout: DropDownTimeOut;
   setDropDownTimeout: (value: DropDownTimeOut) => void;
 
@@ -110,7 +114,7 @@ export interface SearchStoreType {
   setQuery: (value: string) => void;
 
   messageHistory: MessageHistoryItem[];
-  setMessageHistory: (message: string) => void;
+  setMessageHistory: (message: MessageHistoryItem[]) => void;
 
   session: Session | null;
   setSession: (session: Session | null) => void;

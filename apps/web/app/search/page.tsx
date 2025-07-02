@@ -1,6 +1,6 @@
 "use client";
 
-import { AISearchClient } from "@amurex/web/components/AISearch.client";
+import { AISearchClient } from "@amurex/web/components/AISearchComponent";
 import "./search.css";
 
 const AISearch = () => {

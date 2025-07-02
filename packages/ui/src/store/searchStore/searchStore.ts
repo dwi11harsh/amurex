@@ -12,7 +12,11 @@ import { supabase } from "@amurex/supabase";
 import { useRouter } from "next/navigation";
 import { BASE_URL_BACKEND } from "@amurex/ui/lib";
 
+export type { MessagePayload };
+
 export const useSearchStore = create<SearchStoreType>()((set, get) => ({
+  selectedSuggestion: -1,
+  setSelectedSuggestion: (value: number) => set({ selectedSuggestion: value }),
   dropDownTimeout: null,
   setDropDownTimeout: (value) => set({ dropDownTimeout: value }),
 
@@ -22,12 +26,13 @@ export const useSearchStore = create<SearchStoreType>()((set, get) => ({
 
   // Message history
   messageHistory: [],
-  setMessageHistory: (message: string) => {
+  setMessageHistory: (message) => {
     const newMessage: MessageHistoryItem = {
       id: Date.now(),
       user_id: get().session?.user_id || "",
       payload: { type: "USER", content: message },
       created_at: new Date().toISOString(),
+      type: message[0]?.type || "USER",
     };
     set((state) => ({
       messageHistory: [...state.messageHistory, newMessage],

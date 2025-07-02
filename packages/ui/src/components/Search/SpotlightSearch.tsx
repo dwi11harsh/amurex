@@ -2,7 +2,7 @@
 
 import { useSearchStore } from "@amurex/ui/store";
 import { ChatCenteredDots } from "@phosphor-icons/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export const SpotlightSearch = () => {
   const {
@@ -37,23 +37,77 @@ export const SpotlightSearch = () => {
     suggestedPrompts,
     dropDownTimeout: dropdownTimeout,
     setDropDownTimeout: setDropdownTimeout,
+    selectedSuggestion,
+    setSelectedSuggestion,
+    showSpotlight,
+    setQuery,
   } = useSearchStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [selectedSuggestion, setSelectedSuggestion] = useState<number>(-1);
+
+  const onSearch = () => {
+    handleSpotlightSearch();
+  };
 
   const onClose = () => {
     setShowSpotlight(false);
   };
 
-  const onSearch = () => {
-    handleSpotlightSearch();
-  };
+  // Reset state when popup visibility changes
+  useEffect(() => {
+    if (showSpotlight) {
+      setInputValue("");
+      setSelectedSuggestion(-1);
+    }
+  }, [showSpotlight]);
+
+  useEffect(() => {
+    // Focus input when popup becomes visible
+    if (showSpotlight && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [showSpotlight]);
+
+  useEffect(() => {
+    if (!SpotlightSearch) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const filteredPrompts = suggestedPrompts
+        .filter((item) => item.type === "prompt")
+        .slice(0, 3);
+
+      if (e.key === `Escape`) {
+        onClose();
+      } else if (e.key === `ArrowDown`) {
+        e.preventDefault();
+        setSelectedSuggestion(
+          selectedSuggestion < filteredPrompts.length - 1
+            ? selectedSuggestion + 1
+            : selectedSuggestion,
+        );
+      } else if (e.key === `Enter`) {
+        if (
+          selectedSuggestion >= 0 &&
+          selectedSuggestion < filteredPrompts.length
+        ) {
+          e.preventDefault();
+          setQuery(filteredPrompts[selectedSuggestion]?.prompt);
+          onSearch();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+  }, [showSpotlight, onClose, selectedSuggestion, suggestedPrompts, onSearch]);
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).classList.contains("spotlight-overlay")) {
       onClose();
     }
   };
+
+  const filteredPrompts = suggestedPrompts
+    .filter((item) => item.type === "prompt")
+    .slice(0, 3);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,9 +116,7 @@ export const SpotlightSearch = () => {
     }
   };
 
-  const filteredPrompts = suggestedPrompts
-    .filter((item) => item.type === "prompt")
-    .slice(0, 3);
+  if (!showSpotlight) return null;
 
   return (
     <div
