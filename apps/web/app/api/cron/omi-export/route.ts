@@ -29,7 +29,7 @@ type Result = ResultCompleted | ResultError;
 
 // Configure Vercel Cron
 export const dynamic = "force-dynamic";
-export const maxDuration = 800; // 13 minutes in seconds
+export const maxDuration = 100;
 export const revalidate = 0;
 export const runtime = "nodejs";
 
