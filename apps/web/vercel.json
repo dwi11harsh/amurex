@@ -2,19 +2,19 @@
   "crons": [
     {
       "path": "/api/cron/google-import",
-      "schedule": "0 * * * *"
+      "schedule": "0 0 * * *"
     },
     {
       "path": "/api/cron/process-emails",
-      "schedule": "*/15 * * * *"
+      "schedule": "*/15 0 * * *"
     },
     {
       "path": "/api/cron/omi-conversations-import",
-      "schedule": "0 * * * *"
+      "schedule": "0 0 * * *"
     },
     {
       "path": "/api/cron/omi-memories-import",
-      "schedule": "0 * * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 } 
