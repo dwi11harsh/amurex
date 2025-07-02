@@ -41,6 +41,7 @@ type Result = ResultSuccess | ResultError;
 const OMI_API_BASE_URL = "https://api.omi.me/v2";
 const OMI_APP_ID = process.env.OMI_APP_ID as string;
 const OMI_API_KEY = process.env.OMI_API_KEY as string;
+export const dynamic = "force-dynamic";
 
 export async function GET(request: Request): Promise<Response> {
   try {

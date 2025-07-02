@@ -20,7 +20,7 @@ export async function GET(req: Request): Promise<NextResponse> {
       );
     }
 
-    // initialize supabase admin client
+    // initialize supabase admin client with service role key
     const supabase = supabaseAdminClient(
       process.env.SUPABASE_SERVICE_ROLE_KEY as string,
     );

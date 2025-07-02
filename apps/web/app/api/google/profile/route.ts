@@ -16,8 +16,8 @@ type GmailResponseError = {
   error: string;
 };
 
-// // dynamic is used because the use of req.url and req.headers caused Dynamic Server Error
-// export const dynamic = "force-dynamic";
+// dynamic is used because the use of req.url and req.headers caused Dynamic Server Error
+export const dynamic = "force-dynamic";
 
 export async function GET(req: Request): Promise<Response> {
   try {
