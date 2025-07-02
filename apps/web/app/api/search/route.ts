@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { groqClient as groq } from "@amurex/web/lib";
 import { Source, ChatMessage } from "./types";
 import { generatePrompts } from "./lib";
@@ -176,6 +176,11 @@ export async function POST(req: Request): Promise<Response> {
             `[${performance.now() - streamProcessStartTime}ms] Stream processed (${chunkCount} chunks)`,
           );
         }
+
+        // initialize supabase admin client with service role key
+        const adminSupabase = supabaseAdminClient(
+          process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+        );
 
         const dbStartTime = performance.now();
         const { data: user, error } = await adminSupabase

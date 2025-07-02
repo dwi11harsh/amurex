@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { groqClient as groq } from "@amurex/web/lib";
 
@@ -34,6 +34,11 @@ export async function POST(req: Request) {
 
     // Generate checksum for deduplication
     const checksum = crypto.createHash("sha256").update(text).digest("hex");
+
+    // initialize supabase admin client with service role key
+    const supabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Check if document exists
     const { data: existingDoc } = await supabase

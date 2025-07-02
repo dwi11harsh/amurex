@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { CreateClientWithAccessToken } from "@amurex/supabase";
 import { processGoogleDocs } from "./lib";
-import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 
 export const maxDuration = 300;
 export const dynamic = "force-dynamic";
@@ -35,10 +35,16 @@ export async function POST(req: Request) {
     let supabaseClient;
     if (accessToken) {
       // Client-side request with Supabase access token
-      supabaseClient = CreateClientWithAccessToken(accessToken);
+      supabaseClient = CreateClientWithAccessToken(
+        accessToken,
+        process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+      );
     } else {
       // Server-side request (from callback) without Supabase token
-      supabaseClient = adminSupabase;
+      // initialize supabase admin client with service role key
+      supabaseClient = supabaseAdminClient(
+        process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+      );
     }
 
     // Check user's Google token version
@@ -156,6 +162,11 @@ export async function GET(req: Request) {
         { status: 400 },
       );
     }
+
+    // initialize supabase admin client with service role key
+    const adminSupabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Check user's Google token version
     const { data: userData, error: userError } = await adminSupabase

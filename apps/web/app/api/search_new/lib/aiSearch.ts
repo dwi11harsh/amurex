@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { EmbeddingResponse, SearchResult } from "../types";
 
 export const aiSearch = async (
@@ -25,6 +25,11 @@ export const aiSearch = async (
 
   const embedData: EmbeddingResponse = await embeddingResponse.json();
   const queryEmbedding = embedData.data[0]?.embedding;
+
+  // initialize supabase admin client with service role key
+  const supabase = supabaseAdminClient(
+    process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+  );
 
   const { data: sections, error: sectionsError } = await supabase.rpc(
     "match_page_sections",

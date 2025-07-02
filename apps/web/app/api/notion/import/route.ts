@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { calculateCentroid, fetchNotionPageContent, generateTags } from "./lib";
 import crypto from "crypto";
-import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { Client } from "@notionhq/client";
 import { TextSplitter } from "@amurex/web/lib";
 
@@ -18,6 +18,11 @@ export async function POST(req: Request) {
         { status: 401 },
       );
     }
+
+    // initialize supabase admin client with service role key
+    const adminSupabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Get user email if not in headers
     if (!userEmail) {

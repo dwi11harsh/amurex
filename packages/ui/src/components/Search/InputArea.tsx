@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import { ArrowCircleRight } from "@phosphor-icons/react";
 
 type InputWithFocus = HTMLInputElement & { focusInput?: () => void };
-const inputRef = useRef<InputWithFocus>(null);
 
 export function InputArea({
   className = "",
@@ -13,6 +12,7 @@ export function InputArea({
   placeholder?: string;
 }) {
   const { inputValue, setInputValue, sendMessage } = useSearchStore();
+  const inputRef = useRef<InputWithFocus>(null);
 
   // Expose the focus method to parent components
   useEffect(() => {

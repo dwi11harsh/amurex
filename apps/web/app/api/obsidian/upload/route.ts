@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { groqClient as groq } from "@amurex/web/lib";
 import crypto from "crypto";
 import type {
@@ -42,6 +42,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     let userEmail = req.headers.get("x-user-email");
 
     if (!userEmail) {
+      // initialize supabase admin client with service role key
+      const adminSupabase = supabaseAdminClient(
+        process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+      );
+
       const { data: userData, error: userError } = await adminSupabase
         .from("users")
         .select("email")
@@ -62,6 +67,11 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     const tags = await generateTags(content);
     const checksum = crypto.createHash("sha256").update(content).digest("hex");
+
+    // initialize supabase admin client with service role key
+    const adminSupabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Check for existing document
     const { data: existingDoc } = await adminSupabase

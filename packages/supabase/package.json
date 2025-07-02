@@ -9,17 +9,16 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "lint": "eslint src/",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.0"
+    "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^17.0.1"
   },
   "devDependencies": {
-    "@amurex/typescript-config": "workspace:*",
     "@amurex/eslint-config": "workspace:*",
+    "@amurex/typescript-config": "workspace:*",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },

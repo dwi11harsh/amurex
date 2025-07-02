@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabaseAdmin } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 
 type User = {
   id: string;
@@ -69,6 +69,11 @@ async function runOmiExportCron(
 
     // Get the 'initial' parameter
     console.log(`Running in ${isInitial ? "initial" : "incremental"} mode`);
+
+    // initialize supabase admin client with service role key
+    const supabaseAdmin = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // 1. Get users with OMI connection data
     let query = supabaseAdmin
@@ -323,6 +328,11 @@ export async function POST(req: Request): Promise<Response> {
         { status: 400 },
       );
     }
+
+    // initialize supabase admin client with service role key
+    const supabaseAdmin = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Verify the user exists and has OMI connected
     const { data: user, error: userError }: { data: User | null; error: any } =

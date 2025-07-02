@@ -1,5 +1,5 @@
 import { GoogleClient, OAuthClientResult } from "../types";
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { getOauth2Client } from "@amurex/web/lib";
 
 // Function to get OAuth client based on user's google_token_version
@@ -8,6 +8,11 @@ export const getOAuth2ClientForGoogle = async (
   { upgradeToFull = false }: { upgradeToFull?: boolean } = {},
 ): Promise<OAuthClientResult> => {
   try {
+    // initialize supabase admin client with service role key
+    const supabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
+
     // If no userId provided, get a default gmail_only client for new signups
     if (!userId) {
       const { data: defaultClient, error: defaultError } = await supabase
@@ -130,6 +135,11 @@ export const getOAuth2ClientForGoogle = async (
 
     // As a last resort, try to get any available client
     try {
+      // initialize supabase admin client with service role key
+      const supabase = supabaseAdminClient(
+        process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+      );
+
       const { data: anyClient, error: anyError } = await supabase
         .from("google_clients")
         .select("id, client_id, client_secret, type")

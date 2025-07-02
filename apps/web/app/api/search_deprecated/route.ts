@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 
 export async function POST(req: Request) {
   const { query, searchType, session } = await req.json();
@@ -48,6 +48,11 @@ async function aiSearch(query: string, userId: string) {
 }
 
 async function patternSearch(query: string, userId: string) {
+  // initialize supabase admin client with service role key
+  const supabase = supabaseAdminClient(
+    process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+  );
+
   // First search in documents
   const { data: documents, error: documentsError } = await supabase
     .from("documents")

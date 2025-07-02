@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 
 type UserGmail = {
   email_address: string;
@@ -16,8 +16,8 @@ type GmailResponseError = {
   error: string;
 };
 
-// dynamic is used because the use of req.url and req.headers caused Dynamic Server Error
-export const dynamic = "force-dynamic";
+// // dynamic is used because the use of req.url and req.headers caused Dynamic Server Error
+// export const dynamic = "force-dynamic";
 
 export async function GET(req: Request): Promise<Response> {
   try {
@@ -31,6 +31,11 @@ export async function GET(req: Request): Promise<Response> {
         { status: 400 },
       );
     }
+
+    // initialize supabase admin client with service role key
+    const supabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Get all connected Gmail addresses for the user
     const {

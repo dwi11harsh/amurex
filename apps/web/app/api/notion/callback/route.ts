@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { NotionOAuthResponse } from "./types";
 
 export async function GET(req: NextRequest) {
@@ -78,6 +78,11 @@ export async function POST(req: NextRequest) {
         { status: 401 },
       );
     }
+
+    // initialize supabase admin client with service role key
+    const supabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     const { error } = await supabase
       .from("users")

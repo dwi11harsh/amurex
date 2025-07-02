@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabaseAdmin } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 
 type User = {
   id: string;
@@ -74,6 +74,11 @@ export async function GET(req: Request): Promise<Response> {
     const url = new URL(req.url);
     const isInitial = url.searchParams.get("initial") === "true";
     console.log(`Running in ${isInitial ? "initial" : "incremental"} mode`);
+
+    // initialize supabaseAdmin admin client with service role key
+    const supabaseAdmin = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // 1. Get users with OMI connection data
     const {

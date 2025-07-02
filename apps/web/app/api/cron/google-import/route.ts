@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { validateGoogleAccess } from "./lib";
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { GoogleClient, ProcessResult, UserClientData } from "./types";
 
 // Vercel Cron configuration
@@ -19,6 +19,11 @@ export async function GET(req: Request): Promise<NextResponse> {
         { status: 401 },
       );
     }
+
+    // initialize supabase admin client
+    const supabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Fetch users with Google credentials
     const { data: users, error } = await supabase

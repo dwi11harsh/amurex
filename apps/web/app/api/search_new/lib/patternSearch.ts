@@ -1,4 +1,4 @@
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { NextResponse } from "next/server";
 import { SearchResult } from "../types";
 
@@ -6,6 +6,11 @@ export const patternSearch = async (
   query: string,
   userId: string,
 ): Promise<NextResponse> => {
+  // initialize supabase admin client with service role key
+  const supabase = supabaseAdminClient(
+    process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+  );
+
   const { data: documents, error: documentsError } = await supabase
     .from("documents")
     .select("id, url, title, meta, tags")

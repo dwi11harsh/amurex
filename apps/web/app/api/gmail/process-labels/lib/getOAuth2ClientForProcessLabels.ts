@@ -1,5 +1,5 @@
 import { Auth } from "googleapis";
-import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { getOauth2Client } from "@amurex/web/lib";
 
 interface UserData {
@@ -16,6 +16,11 @@ export const getOAuth2ClientForProcessLabels = async (
 ): Promise<Auth.OAuth2Client> => {
   try {
     console.log("Getting OAuth credentials for user:", userId);
+
+    // initialize supabase admin client with service role key
+    const adminSupabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Fetch user's google_cohort
     const {

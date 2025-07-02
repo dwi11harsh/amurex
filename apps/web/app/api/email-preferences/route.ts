@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
-import { supabaseAdminClient as supabaseAdmin } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { EmailPreferences, PostRequestBody, UserRow } from "./types";
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
+    // initialize supabase admin client with service role key
+    const supabaseAdmin = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
+
     const { userId, categories } = (await req.json()) as PostRequestBody;
 
     if (!userId || !categories) {
@@ -53,6 +58,11 @@ export async function GET(req: Request): Promise<NextResponse> {
         { status: 400 },
       );
     }
+
+    // initialize supabase admin client with service role key
+    const supabaseAdmin = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     const { data, error } = await supabaseAdmin
       .from("users")

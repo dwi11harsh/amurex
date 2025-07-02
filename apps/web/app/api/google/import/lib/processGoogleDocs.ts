@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import crypto from "crypto";
-import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { getOauth2Client } from "@amurex/web/lib";
 import { generateTags } from "./generateTags";
 
@@ -20,6 +20,11 @@ export const processGoogleDocs = async (
     if (providedTokens && providedTokens.access_token) {
       tokens = providedTokens;
     } else {
+      // initialize supabase admin client with service role key
+      const adminSupabase = supabaseAdminClient(
+        process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+      );
+
       // Otherwise get user's Google tokens from database
       const { data: user, error: userError } = await adminSupabase
         .from("users")
@@ -57,6 +62,11 @@ export const processGoogleDocs = async (
     ) {
       console.log("Token expired or missing expiry, refreshing...");
       const { credentials } = await oauth2Client.refreshAccessToken();
+
+      // initialize supabase admin client with service role key
+      const adminSupabase = supabaseAdminClient(
+        process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+      );
 
       // Update tokens in database
       const { error: updateError } = await adminSupabase
@@ -166,6 +176,11 @@ export const processGoogleDocs = async (
 
         console.log("checksum:", checksum);
         console.log("user id?", session.id);
+
+        // initialize supabase admin client with service role key
+        const adminSupabase = supabaseAdminClient(
+          process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+        );
 
         // Check for existing document
         const { data: existingDoc } = await adminSupabase

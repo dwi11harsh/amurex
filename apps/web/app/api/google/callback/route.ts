@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { getOauth2Client } from "@amurex/web/lib";
 
 export async function GET(request: NextRequest) {
@@ -39,6 +39,11 @@ export async function GET(request: NextRequest) {
       console.error("Invalid state parameter:", state);
       throw new Error("Invalid state parameter");
     }
+
+    // initialize supabase admin client with service role key
+    const supabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Get the client credentials from the database
     const { data: clientData, error: clientError } = await supabase

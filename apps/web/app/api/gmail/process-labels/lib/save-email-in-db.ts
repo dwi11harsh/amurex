@@ -1,6 +1,6 @@
 // Update storeEmailInDatabase function to include embeddings
 
-import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 
 /**
  * Stores an email in the database with optional embeddings
@@ -17,6 +17,11 @@ export const storeEmailInDatabase = async (
   isRead: boolean,
   snippet: string | null,
 ): Promise<boolean> => {
+  // initialize supabase admin client with service role key
+  const adminSupabase = supabaseAdminClient(
+    process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+  );
+
   // Check if email already exists in the database
   const { data: existingEmail } = await adminSupabase
     .from("emails")

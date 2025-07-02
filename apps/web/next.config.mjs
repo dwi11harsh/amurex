@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@amurex/ui"],
+  transpilePackages: ["@amurex/ui", "@amurex/supabase", "@amurex/types"],
 };
 
 export default nextConfig;

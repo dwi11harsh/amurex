@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { validateGmailAccess } from "./lib";
-import { supabaseAdminClient as supabaseAdmin } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { GoogleClient, ProcessResult, User, UserClientConfig } from "./types";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +20,11 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    // initialize supabase admin client with service role key
+    const supabaseAdmin = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
+
     const { data: users, error: usersError } = (await supabaseAdmin
       .from("users")
       .select(

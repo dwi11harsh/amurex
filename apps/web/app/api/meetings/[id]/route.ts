@@ -1,4 +1,4 @@
-import { supabaseAdminClient as supabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -7,6 +7,11 @@ export async function GET(
 ): Promise<NextResponse> {
   try {
     const { id } = params;
+
+    // initialize supabase admin client with service role key
+    const supabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     const { data, error } = await supabase
       .from("late_meeting")

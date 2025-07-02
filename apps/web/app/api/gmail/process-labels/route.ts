@@ -5,7 +5,7 @@ import {
   storeEmailInDatabase,
   validateGmailAccess,
 } from "./lib";
-import { supabaseAdminClient as adminSupabase } from "@amurex/supabase";
+import { supabaseAdminClient } from "@amurex/supabase";
 import { getOauth2Client } from "@amurex/web/lib";
 import { google } from "googleapis";
 import { GmailMessagePart, LabelRequestBody } from "./types";
@@ -23,6 +23,11 @@ export async function POST(req: Request) {
         { status: 400 },
       );
     }
+
+    // initialize supabase admin client with service role key
+    const adminSupabase = supabaseAdminClient(
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
 
     // Fetch user's Google credentials and email tagging settings using admin Supabase client
     const { data: userData, error: userError } = await adminSupabase
