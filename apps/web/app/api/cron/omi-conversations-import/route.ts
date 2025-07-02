@@ -35,6 +35,9 @@ const OMI_API_BASE_URL = "https://api.omi.me/v2";
 const OMI_APP_ID = process.env.OMI_APP_ID as string;
 const OMI_API_KEY = process.env.OMI_API_KEY as string;
 
+// dynamic is added because the use of request.headers caused Dynamic Server Error
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request): Promise<Response> {
   try {
     // Verify cron secret to ensure this is called by the scheduler

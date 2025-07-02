@@ -16,6 +16,8 @@ export * from "./MeetDetail";
 export * from "./TranscriptSummary";
 export * from "./Settings";
 export * from "./Onboarding";
+export * from "./Search";
+export * from "./StarButton";
 
 export const PROVIDER_ICONS = {
   google:

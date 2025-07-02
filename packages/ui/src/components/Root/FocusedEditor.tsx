@@ -12,7 +12,9 @@ interface FocusedEditorProps {
 
 export const FocusedEditor = ({ onSave, onClose }: FocusedEditorProps) => {
   const [data, setData] = useState<string>("");
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<{
+    storage: { markdown: { getMarkdown: () => string } };
+  } | null>(null);
   const [saveStatus, setSaveStatus] = useState<string>("Unsaved");
   const [session, setSession] = useState<Session | null>(null);
   const [Editor, setEditor] = useState<any>(null);
@@ -42,11 +44,10 @@ export const FocusedEditor = ({ onSave, onClose }: FocusedEditorProps) => {
 
   const handleImageUpload = useCallback(async (file: File) => {
     // TODO?: Following function `startUpload` is never implemented
-    // @ts-ignore
-    const uploads = await startUpload([file]);
-    if (uploads && uploads.length > 0) {
-      return uploads[0].url;
-    }
+    // const uploads = await startUpload([file]);
+    // if (uploads && uploads.length > 0) {
+    //   return uploads[0].url;
+    // }
     return "www.example.com/failed-upload.png";
   }, []);
 

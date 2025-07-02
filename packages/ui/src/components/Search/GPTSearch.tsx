@@ -4,9 +4,13 @@ import remarkGfm from "remark-gfm";
 
 type GPTSearchProps = {
   content?: string;
+  className?: string;
 };
 
-export const GPTSearch: React.FC<GPTSearchProps> = ({ content = "" }) => {
+export const GPTSearch: React.FC<GPTSearchProps> = ({
+  content = "",
+  className,
+}) => {
   const [showEmailButton, setShowEmailButton] = useState<boolean>(false);
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -61,7 +65,7 @@ export const GPTSearch: React.FC<GPTSearchProps> = ({ content = "" }) => {
   };
 
   return (
-    <div ref={contentRef}>
+    <div ref={contentRef} className={className}>
       <div className="prose text-md leading-8 font mt-1 w-full break-words prose-p:mb-4 text-white">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
